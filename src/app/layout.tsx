@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { inter } from "@/lib/fonts";
+import NavigationPanel from "@/components/navigation-panel";
 
 export const metadata: Metadata = {
   title: "Fitness Tracker",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <NavigationPanel />
+        {children}
+      </body>
     </html>
   );
 }
