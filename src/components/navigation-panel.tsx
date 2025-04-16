@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { XMarkIcon, Bars3Icon } from "@heroicons/react/16/solid";
 
 export default function NavigationPanel() {
   const [open, setOpen] = useState(true);
@@ -12,7 +13,11 @@ export default function NavigationPanel() {
       }`}
     >
       <button className="ml-auto" onClick={() => setOpen(!open)}>
-        {open ? "Close" : "Menu"}
+        {open ? (
+          <XMarkIcon className="w-full h-full" />
+        ) : (
+          <Bars3Icon className="w-full h-full" />
+        )}
       </button>
     </aside>
   );
