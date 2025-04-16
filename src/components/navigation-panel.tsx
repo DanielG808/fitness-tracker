@@ -14,9 +14,9 @@ export default function NavigationPanel() {
     >
       <button className="ml-auto" onClick={() => setOpen(!open)}>
         {open ? (
-          <XMarkIcon className="w-full h-full" />
+          <XMarkIcon className="w-10 h-10" />
         ) : (
-          <Bars3Icon className="w-full h-full" />
+          <Bars3Icon className="w-10 h-10" />
         )}
       </button>
     </aside>
