@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/16/solid";
+import NavLinkList from "./nav-link-list";
 
 export default function NavigationPanel() {
   const [open, setOpen] = useState(true);
@@ -14,11 +15,12 @@ export default function NavigationPanel() {
     >
       <button className="ml-auto" onClick={() => setOpen(!open)}>
         {open ? (
-          <XMarkIcon className="w-full h-full" />
+          <XMarkIcon className="w-10 h-10" />
         ) : (
-          <Bars3Icon className="w-full h-full" />
+          <Bars3Icon className="w-10 h-10" />
         )}
       </button>
+      <NavLinkList />
     </aside>
   );
 }
