@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import NavLinkList from "./nav-link-list";
+import MenuButton from "./menu-button";
 import Logo from "./logo";
+import NavLinkList from "./nav-link-list";
 import Footer from "./footer";
-import NavPanelButton from "./nav-panel-button";
 
 export default function NavigationPanel() {
   const [open, setOpen] = useState(true);
@@ -17,7 +17,7 @@ export default function NavigationPanel() {
           : "-translate-x-5/6 shadow-[4px_0_10px_rgba(0,0,0,0.4)]"
       }`}
     >
-      <NavPanelButton open={open} setOpen={setOpen} />
+      <MenuButton open={open} setOpen={setOpen} />
       <div className="my-12 flex-1">
         <Logo className="ml-5" />
         <NavLinkList />

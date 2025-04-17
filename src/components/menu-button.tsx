@@ -1,11 +1,11 @@
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/16/solid";
 
-type NavPanelButtonProps ={
+type MenuButtonProps ={
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function NavPanelButton({ open, setOpen }: NavPanelButtonProps) {
+export default function MenuButton({ open, setOpen }: MenuButtonProps) {
   return (
     <button className="ml-auto cursor-pointer" onClick={() => setOpen(!open)}>
         {open ? (
