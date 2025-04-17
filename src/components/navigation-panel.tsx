@@ -9,8 +9,10 @@ export default function NavigationPanel() {
 
   return (
     <aside
-      className={`flex flex-col fixed top-0 left-0 h-full w-1/5 bg-foreground p-2 transform transition-transform duration-300 ${
-        open ? "translate-x-0" : "-translate-x-5/6"
+      className={`flex flex-col fixed top-0 left-0 h-full w-1/5 bg-foreground p-2 transform transition-transform duration-300  ${
+        open
+          ? "translate-x-0 shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
+          : "-translate-x-5/6 shadow-[4px_0_10px_rgba(0,0,0,0.4)]"
       }`}
     >
       <button className="ml-auto" onClick={() => setOpen(!open)}>
