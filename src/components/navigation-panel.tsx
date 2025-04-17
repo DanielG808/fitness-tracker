@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { XMarkIcon, Bars3Icon } from "@heroicons/react/16/solid";
 import NavLinkList from "./nav-link-list";
 import Logo from "./logo";
+import Footer from "./footer";
+import NavPanelButton from "./nav-panel-button";
 
 export default function NavigationPanel() {
   const [open, setOpen] = useState(true);
@@ -16,17 +17,12 @@ export default function NavigationPanel() {
           : "-translate-x-5/6 shadow-[4px_0_10px_rgba(0,0,0,0.4)]"
       }`}
     >
-      <button className="ml-auto" onClick={() => setOpen(!open)}>
-        {open ? (
-          <XMarkIcon className="w-8 h-8" />
-        ) : (
-          <Bars3Icon className="w-10 h-10" />
-        )}
-      </button>
-      <div className="my-12">
+      <NavPanelButton open={open} setOpen={setOpen} />
+      <div className="my-12 flex-1">
         <Logo className="ml-5" />
         <NavLinkList />
       </div>
+      <Footer />
     </aside>
   );
 }
