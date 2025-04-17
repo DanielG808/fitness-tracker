@@ -16,17 +16,17 @@ export default function NavigationPanel() {
           : "-translate-x-5/6 shadow-[4px_0_10px_rgba(0,0,0,0.4)]"
       }`}
     >
-      <div className="flex items-center">
+      <button className="ml-auto" onClick={() => setOpen(!open)}>
+        {open ? (
+          <XMarkIcon className="w-8 h-8" />
+        ) : (
+          <Bars3Icon className="w-10 h-10" />
+        )}
+      </button>
+      <div className="flex flex-col items-center py-3">
         <Logo />
-        <button className="ml-auto" onClick={() => setOpen(!open)}>
-          {open ? (
-            <XMarkIcon className="w-8 h-8" />
-          ) : (
-            <Bars3Icon className="w-10 h-10" />
-          )}
-        </button>
+        <NavLinkList />
       </div>
-      <NavLinkList />
     </aside>
   );
 }
