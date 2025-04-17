@@ -1,13 +1,14 @@
+import { navLinks } from "@/lib/navLinks";
 import NavLink from "./nav-link";
-import { CalendarIcon } from "@heroicons/react/16/solid";
 
 export default function NavLinkList() {
   return (
-    <nav className="flex flex-col m-20 space-y-10">
-        <NavLink />
-        <NavLink />
-        <NavLink />
-        <NavLink />
+    <nav>
+      <ul className="flex flex-col mx-16 mt-14 space-y-10 text-xl">
+        {navLinks.map(({ icon: Icon, name, path }) => (
+          <NavLink key={path} Icon={Icon} name={name} path={path} />
+        ))}
+      </ul>
     </nav>
-  )
+  );
 }
