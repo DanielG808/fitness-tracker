@@ -6,10 +6,7 @@ export default function NavLinkList() {
     <nav>
       <ul className="flex flex-col m-16 space-y-10 text-xl">
         {navLinks.map(({ icon: Icon, name, path }) => (
-          <li key={path} className="flex items-center">
-            <Icon className="w-8 h-8" />
-            <a href={path}>{name}</a>
-          </li>
+          <NavLink key={path} Icon={Icon} name={name} path={path} />
         ))}
       </ul>
     </nav>
