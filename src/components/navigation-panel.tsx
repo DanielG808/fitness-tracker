@@ -23,8 +23,8 @@ export default function NavigationPanel() {
           <Bars3Icon className="w-10 h-10" />
         )}
       </button>
-      <div className="flex flex-col items-center py-3">
-        <Logo />
+      <div className="my-12">
+        <Logo className="ml-5" />
         <NavLinkList />
       </div>
     </aside>
