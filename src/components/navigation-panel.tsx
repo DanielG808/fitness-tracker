@@ -5,9 +5,10 @@ import MenuButton from "./menu-button";
 import Logo from "./logo";
 import NavLinkList from "./nav-link-list";
 import Footer from "./footer";
+import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
 
 export default function NavigationPanel() {
-  const [open, setOpen] = useState(true);
+  const { open, setOpen } = useNavigationPanelContext()
 
   return (
     <aside
