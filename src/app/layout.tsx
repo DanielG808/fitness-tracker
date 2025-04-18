@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { inter } from "@/lib/fonts";
+import { inter } from "@/lib/constants/fonts";
 import NavigationPanel from "@/components/navigation-panel";
+import NavigationPanelContextProvider from "@/contexts/navigation-panel-context";
+import PageContentContainer from "@/components/page-content-container";
 
 export const metadata: Metadata = {
   title: "Fitness Tracker",
@@ -16,8 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased flex`}>
-        <NavigationPanel />
-        {children}
+        <NavigationPanelContextProvider>
+          <NavigationPanel />
+          <PageContentContainer>
+            {children}
+          </PageContentContainer>
+        </NavigationPanelContextProvider>
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-import { navLinks } from "@/lib/navLinks";
+import { navLinks } from "@/lib/constants/navLinks";
 import NavLink from "./nav-link";
 
 export default function NavLinkList() {

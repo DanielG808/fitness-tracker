@@ -1,4 +1,4 @@
-import { bebasNeue } from "@/lib/fonts";
+import { bebasNeue } from "@/lib/constants/fonts";
 import { cn } from "@/lib/utils/cn";
 import Link from "next/link";
 
