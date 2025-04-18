@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import MenuButton from "./menu-button";
 import Logo from "./logo";
 import NavLinkList from "./nav-link-list";

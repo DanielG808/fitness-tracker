@@ -3,6 +3,7 @@ import "./globals.css";
 import { inter } from "@/lib/constants/fonts";
 import NavigationPanel from "@/components/navigation-panel";
 import NavigationPanelContextProvider from "@/contexts/navigation-panel-context";
+import PageContentContainer from "@/components/page-content-container";
 
 export const metadata: Metadata = {
   title: "Fitness Tracker",
@@ -19,7 +20,9 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased flex`}>
         <NavigationPanelContextProvider>
           <NavigationPanel />
-          {children}
+          <PageContentContainer>
+            {children}
+          </PageContentContainer>
         </NavigationPanelContextProvider>
       </body>
     </html>
