@@ -38,4 +38,14 @@ describe("useNavigationPanelContext hook function", () => {
     fireEvent.click(toggleButton);
     expect(panelState.textContent).toEqual("open");
   });
+
+  it("throws an error when hook is called outside context provider", () => {
+    const spy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+    expect(() => render(<TestComponent />)).toThrow(
+      "useNavigationPanelContext must be used within NavigationPanelContextProvider."
+    );
+
+    spy.mockRestore();
+  });
 });
