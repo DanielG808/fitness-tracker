@@ -1,4 +1,5 @@
 import test, { expect } from "playwright/test";
+import { formatRgb, oklch } from "culori"
 import { navLinks } from "@/lib/constants/navLinks";
 
 test.describe("Navigation Panel", () => {
@@ -18,5 +19,22 @@ test.describe("Navigation Panel", () => {
         await expect(anchorElement).toHaveText(name);
       }
     });
+
+    
+    test("should have correct styling", async ({ page }) => {
+      await page.evaluate(async () => {
+        await document.fonts.ready
+      })
+
+      const element = page.getByTestId("nav-home")
+      
+      const fontFamily = await element.evaluate((el) => window.getComputedStyle(el).fontFamily)
+      const computedColor = await element.evaluate((el) => window.getComputedStyle(el).color)
+
+      const expectedRgb = formatRgb(oklch(computedColor))
+      
+      expect(fontFamily.toLowerCase()).toContain("inter")
+      expect(expectedRgb).toBe("rgb(124, 207, 0)")
+    })
   });
 });
