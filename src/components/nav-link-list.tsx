@@ -6,7 +6,13 @@ export default function NavLinkList() {
     <nav>
       <ul className="flex flex-col mx-16 mt-14 space-y-10 text-xl">
         {navLinks.map(({ icon: Icon, name, path }) => (
-          <NavLink key={path} Icon={Icon} name={name} path={path} />
+          <NavLink
+            testId={`nav-${path.replace(/\//g, "") || "home"}`}
+            key={path}
+            Icon={Icon}
+            name={name}
+            path={path}
+          />
         ))}
       </ul>
     </nav>
