@@ -8,7 +8,7 @@ test.describe("Navigation Panel", () => {
 
   test.describe("Content & Styling", () => {
     test("should have correct names", async ({ page }) => {
-      for (let i = 0; i <= navLinks.length; i++) {
+      for (let i = 0; i < navLinks.length; i++) {
         const { name, path } = navLinks[i];
         const testId = `nav-${path.replace(/\//g, "") || "home"}`;
 
