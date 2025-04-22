@@ -11,13 +11,30 @@ test.describe("Navigation Panel", () => {
       });
     });
 
-    test("logo should have correct text and styling", async ({ page }) => {
+    test("logo should have correct text", async ({ page }) => {
       const logo = page.getByTestId("nav-panel-logo");
       const anchorElement = logo.locator("a");
 
       const textContent = await anchorElement.textContent();
 
       expect(textContent).toBe("Fitness Tracker");
+    });
+    
+    test("logo should have correct styling", async ({ page }) => {
+      const logo = page.getByTestId("nav-panel-logo");
+      
+      const fontFamily = await logo.evaluate(
+        (logo) => window.getComputedStyle(logo).fontFamily
+      );
+      const computedColor = await logo.evaluate(
+        (logo) => window.getComputedStyle(logo).color
+      );
+
+      const color = parse(computedColor);
+      const expectedRgb = formatRgb(color);
+
+      expect(fontFamily.toLowerCase()).toContain("bebas neue");
+      expect(expectedRgb).toBe("rgb(124, 207, 0)");
     });
 
     test("nav-links should have correct names", async ({ page }) => {
