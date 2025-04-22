@@ -7,7 +7,7 @@ import Footer from "./footer";
 import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
 
 export default function NavigationPanel() {
-  const { open, setOpen } = useNavigationPanelContext()
+  const { open, setOpen } = useNavigationPanelContext();
 
   return (
     <aside
@@ -19,7 +19,7 @@ export default function NavigationPanel() {
     >
       <MenuButton open={open} setOpen={setOpen} />
       <div className="my-12 flex-1">
-        <Logo className="ml-5" />
+        <Logo testId="nav-panel-logo" className="ml-5" />
         <NavLinkList />
       </div>
       <Footer />
