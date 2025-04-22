@@ -1,14 +1,26 @@
 import test, { expect } from "playwright/test";
-import { formatRgb, oklch } from "culori"
+import { formatRgb, parse } from "culori";
 import { navLinks } from "@/lib/constants/navLinks";
 
 test.describe("Navigation Panel", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("/");
-  });
-
   test.describe("Content & Styling", () => {
-    test("should have correct names", async ({ page }) => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto("/");
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+      });
+    });
+
+    test("logo should have correct text and styling", async ({ page }) => {
+      const logo = page.getByTestId("nav-panel-logo");
+      const anchorElement = logo.locator("a");
+
+      const textContent = await anchorElement.textContent();
+
+      expect(textContent).toBe("Fitness Tracker");
+    });
+
+    test("nav-links should have correct names", async ({ page }) => {
       for (let i = 0; i < navLinks.length; i++) {
         const { name, path } = navLinks[i];
         const testId = `nav-${path.replace(/\//g, "") || "home"}`;
@@ -20,21 +32,21 @@ test.describe("Navigation Panel", () => {
       }
     });
 
-    
-    test("should have correct styling", async ({ page }) => {
-      await page.evaluate(async () => {
-        await document.fonts.ready
-      })
+    test("nav-links should have correct styling", async ({ page }) => {
+      const element = page.getByTestId("nav-home");
 
-      const element = page.getByTestId("nav-home")
-      
-      const fontFamily = await element.evaluate((el) => window.getComputedStyle(el).fontFamily)
-      const computedColor = await element.evaluate((el) => window.getComputedStyle(el).color)
+      const fontFamily = await element.evaluate(
+        (el) => window.getComputedStyle(el).fontFamily
+      );
+      const computedColor = await element.evaluate(
+        (el) => window.getComputedStyle(el).color
+      );
 
-      const expectedRgb = formatRgb(oklch(computedColor))
-      
-      expect(fontFamily.toLowerCase()).toContain("inter")
-      expect(expectedRgb).toBe("rgb(124, 207, 0)")
-    })
+      const color = parse(computedColor);
+      const expectedRgb = formatRgb(color);
+
+      expect(fontFamily.toLowerCase()).toContain("inter");
+      expect(expectedRgb).toBe("rgb(124, 207, 0)");
+    });
   });
 });
