@@ -78,4 +78,22 @@ test.describe("Navigation Panel", () => {
       expect(expectedRgb).toBe("rgb(124, 207, 0)");
     });
   });
+
+  test.describe("Navigation", () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto("/")
+    })
+
+    test("logo should navigate to home tab", async ({ page }) => {
+      const linkContainer = page.getByTestId("nav-workouts")
+      const anchorElement = linkContainer.locator("a")
+      
+      await anchorElement.click()
+      await page.waitForURL("**/workouts")
+
+      const pathName = new URL(page.url()).pathname
+
+      expect(pathName).toBe("/workouts")
+    })
+  })
 });
