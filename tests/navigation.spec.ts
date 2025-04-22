@@ -84,16 +84,21 @@ test.describe("Navigation Panel", () => {
       await page.goto("/")
     })
 
-    test("logo should navigate to home tab", async ({ page }) => {
-      const linkContainer = page.getByTestId("nav-workouts")
-      const anchorElement = linkContainer.locator("a")
-      
-      await anchorElement.click()
-      await page.waitForURL("**/workouts")
+    test("nav-links should navigate to correct paths", async ({ page }) => {
+      for (let i = 0; i < navLinks.length; i++) {
+        const { path } = navLinks[i]
+        const testId = `nav-${path.replace(/\//g, "") || "home"}`;
 
-      const pathName = new URL(page.url()).pathname
-
-      expect(pathName).toBe("/workouts")
+        const linkContainer = page.getByTestId(testId)
+        const anchorElement = linkContainer.locator("a")
+        
+        await anchorElement.click()
+        await page.waitForURL(`**${path}`)
+        
+        const pathName = new URL(page.url()).pathname
+  
+        expect(pathName).toBe(path)
+      }
     })
   })
 });
