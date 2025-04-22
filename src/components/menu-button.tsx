@@ -7,11 +7,11 @@ type MenuButtonProps ={
 
 export default function MenuButton({ open, setOpen }: MenuButtonProps) {
   return (
-    <button className="ml-auto cursor-pointer" onClick={() => setOpen(!open)}>
+    <button data-testid="menu-button" className="ml-auto cursor-pointer" onClick={() => setOpen(!open)}>
       {open ? (
-        <XMarkIcon className="w-8 h-8" />
+        <XMarkIcon data-testid="close-icon" className="w-8 h-8" />
       ) : (
-        <Bars3Icon className="w-10 h-10" />
+        <Bars3Icon data-testid="open-icon" className="w-10 h-10" />
       )}
     </button>
   )

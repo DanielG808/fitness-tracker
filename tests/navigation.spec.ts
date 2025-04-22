@@ -11,6 +11,18 @@ test.describe("Navigation Panel", () => {
       });
     });
 
+    test("menu-button should render correct icon based on open state", async ({ page }) => {
+      const menuButton = page.getByTestId("menu-button")
+
+      await expect(page.getByTestId("close-icon")).toBeVisible()
+      await expect(page.getByTestId("open-icon")).toHaveCount(0)
+
+      await menuButton.click()
+
+      await expect(page.getByTestId("open-icon")).toBeVisible()
+      await expect(page.getByTestId("close-icon")).toHaveCount(0)
+    })
+
     test("logo should have correct text", async ({ page }) => {
       const logo = page.getByTestId("nav-panel-logo");
       const anchorElement = logo.locator("a");
