@@ -11,17 +11,19 @@ test.describe("Navigation Panel", () => {
       });
     });
 
-    test("menu-button should render correct icon based on open state", async ({ page }) => {
-      const menuButton = page.getByTestId("menu-button")
+    test("menu-button should render correct icon based on open state", async ({
+      page,
+    }) => {
+      const menuButton = page.getByTestId("menu-button");
 
-      await expect(page.getByTestId("close-icon")).toBeVisible()
-      await expect(page.getByTestId("open-icon")).toHaveCount(0)
+      await expect(page.getByTestId("close-icon")).toBeVisible();
+      await expect(page.getByTestId("open-icon")).toHaveCount(0);
 
-      await menuButton.click()
+      await menuButton.click();
 
-      await expect(page.getByTestId("open-icon")).toBeVisible()
-      await expect(page.getByTestId("close-icon")).toHaveCount(0)
-    })
+      await expect(page.getByTestId("open-icon")).toBeVisible();
+      await expect(page.getByTestId("close-icon")).toHaveCount(0);
+    });
 
     test("logo should have correct text", async ({ page }) => {
       const logo = page.getByTestId("nav-panel-logo");
@@ -31,10 +33,10 @@ test.describe("Navigation Panel", () => {
 
       expect(textContent).toBe("Fitness Tracker");
     });
-    
+
     test("logo should have correct styling", async ({ page }) => {
       const logo = page.getByTestId("nav-panel-logo");
-      
+
       const fontFamily = await logo.evaluate(
         (logo) => window.getComputedStyle(logo).fontFamily
       );
@@ -81,24 +83,38 @@ test.describe("Navigation Panel", () => {
 
   test.describe("Navigation", () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto("/")
-    })
+      await page.goto("/");
+    });
+
+    test("logo navigates to home page", async ({ page }) => {
+      await page.goto("/workouts");
+
+      const logo = page.getByTestId("nav-panel-logo");
+      const anchorElement = logo.locator("a");
+
+      await anchorElement.click();
+      await page.waitForURL("/");
+
+      const pathName = new URL(page.url()).pathname;
+
+      expect(pathName).toBe("/");
+    });
 
     test("nav-links should navigate to correct paths", async ({ page }) => {
       for (let i = 0; i < navLinks.length; i++) {
-        const { path } = navLinks[i]
+        const { path } = navLinks[i];
         const testId = `nav-${path.replace(/\//g, "") || "home"}`;
 
-        const linkContainer = page.getByTestId(testId)
-        const anchorElement = linkContainer.locator("a")
-        
-        await anchorElement.click()
-        await page.waitForURL(`**${path}`)
-        
-        const pathName = new URL(page.url()).pathname
-  
-        expect(pathName).toBe(path)
+        const linkContainer = page.getByTestId(testId);
+        const anchorElement = linkContainer.locator("a");
+
+        await anchorElement.click();
+        await page.waitForURL(`**${path}`);
+
+        const pathName = new URL(page.url()).pathname;
+
+        expect(pathName).toBe(path);
       }
-    })
-  })
+    });
+  });
 });
