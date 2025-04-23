@@ -11,6 +11,19 @@ test.describe("Navigation Panel", () => {
       });
     });
 
+    test("navigation panel should collapse/expand based on open state", async ({
+      page,
+    }) => {
+      const menuButton = page.getByTestId("menu-button");
+      const navPanel = page.getByTestId("navigation-panel");
+
+      await expect(navPanel).toHaveClass(/translate-x-0/);
+
+      await menuButton.click();
+
+      await expect(navPanel).toHaveClass(/-translate-x-5\/6/);
+    });
+
     test("menu-button should render correct icon based on open state", async ({
       page,
     }) => {
@@ -23,19 +36,6 @@ test.describe("Navigation Panel", () => {
 
       await expect(page.getByTestId("open-icon")).toBeVisible();
       await expect(page.getByTestId("close-icon")).not.toBeVisible();
-    });
-
-    test("navigation panel should collapse/expand based on open state", async ({
-      page,
-    }) => {
-      const menuButton = page.getByTestId("menu-button");
-      const navPanel = page.getByTestId("navigation-panel");
-
-      await expect(navPanel).toHaveClass(/translate-x-0/);
-
-      await menuButton.click();
-
-      await expect(navPanel).toHaveClass(/-translate-x-5\/6/);
     });
 
     test("logo should have correct text", async ({ page }) => {
@@ -99,7 +99,7 @@ test.describe("Navigation Panel", () => {
       await page.goto("/");
     });
 
-    test("logo navigates to home page", async ({ page }) => {
+    test("logo should navigate to home page", async ({ page }) => {
       await page.goto("/workouts");
 
       const logo = page.getByTestId("nav-panel-logo");
