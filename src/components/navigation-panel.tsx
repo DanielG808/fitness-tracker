@@ -11,6 +11,7 @@ export default function NavigationPanel() {
 
   return (
     <aside
+      data-testid="navigation-panel"
       className={`flex flex-col fixed top-0 left-0 h-full w-1/5 bg-foreground p-2 transform transition-transform duration-300  ${
         open
           ? "translate-x-0 shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
