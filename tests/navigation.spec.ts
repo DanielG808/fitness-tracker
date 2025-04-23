@@ -17,12 +17,25 @@ test.describe("Navigation Panel", () => {
       const menuButton = page.getByTestId("menu-button");
 
       await expect(page.getByTestId("close-icon")).toBeVisible();
-      await expect(page.getByTestId("open-icon")).toHaveCount(0);
+      await expect(page.getByTestId("open-icon")).not.toBeVisible();
 
       await menuButton.click();
 
       await expect(page.getByTestId("open-icon")).toBeVisible();
-      await expect(page.getByTestId("close-icon")).toHaveCount(0);
+      await expect(page.getByTestId("close-icon")).not.toBeVisible();
+    });
+
+    test("navigation panel should collapse/expand based on open state", async ({
+      page,
+    }) => {
+      const menuButton = page.getByTestId("menu-button");
+      const navPanel = page.getByTestId("navigation-panel");
+
+      await expect(navPanel).toHaveClass(/translate-x-0/);
+
+      await menuButton.click();
+
+      await expect(navPanel).toHaveClass(/-translate-x-5\/6/);
     });
 
     test("logo should have correct text", async ({ page }) => {
