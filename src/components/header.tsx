@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="bg-foreground-light flex justify-start items-center h-20 pl-5 space-x-6">
       <HamburgerButton />
-      <Logo testId="nav-panel-logo" className="ml-5 " />
+      <Logo testId="nav-panel-logo" />
     </header>
   );
 }
