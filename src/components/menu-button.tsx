@@ -1,11 +1,11 @@
+"use client";
+
+import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
 import { ChevronLeftIcon } from "@heroicons/react/16/solid";
 
-type MenuButtonProps = {
-  open: boolean;
-  setOpen: (value: boolean) => void;
-};
+export default function MenuButton() {
+  const { open, setOpen } = useNavigationPanelContext();
 
-export default function MenuButton({ open, setOpen }: MenuButtonProps) {
   return (
     <div className="flex items-center justify-end h-20 pr-2">
       <button

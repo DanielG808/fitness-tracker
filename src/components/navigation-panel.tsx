@@ -1,12 +1,13 @@
 "use client";
 
-import MenuButton from "./menu-button";
-import NavLinkList from "./nav-link-list";
-import Footer from "./footer";
 import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
 
-export default function NavigationPanel() {
-  const { open, setOpen } = useNavigationPanelContext();
+export default function NavigationPanel({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { open } = useNavigationPanelContext();
 
   return (
     <aside
@@ -17,9 +18,7 @@ export default function NavigationPanel() {
           : "w-0 min-w-0 p-0"
       }`}
     >
-      <MenuButton open={open} setOpen={setOpen} />
-      <NavLinkList />
-      <Footer />
+      {children}
     </aside>
   );
 }
