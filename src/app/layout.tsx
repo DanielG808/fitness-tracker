@@ -4,6 +4,7 @@ import { inter } from "@/lib/constants/fonts";
 import NavigationPanel from "@/components/navigation-panel";
 import NavigationPanelContextProvider from "@/contexts/navigation-panel-context";
 import PageContentContainer from "@/components/page-content-container";
+import Header from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Fitness Tracker",
@@ -21,6 +22,7 @@ export default function RootLayout({
         <NavigationPanelContextProvider>
           <NavigationPanel />
           <PageContentContainer>
+            <Header />
             {children}
           </PageContentContainer>
         </NavigationPanelContextProvider>
