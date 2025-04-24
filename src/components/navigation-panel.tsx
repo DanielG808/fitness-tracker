@@ -12,14 +12,16 @@ export default function NavigationPanel() {
   return (
     <aside
       data-testid="navigation-panel"
-      className={`flex flex-col fixed top-0 left-0 h-full w-1/5 bg-foreground p-2 transform transition-transform duration-300  ${
+      className={`flex flex-col bg-foreground-dark transition-all duration-300 overflow-hidden ${
         open
-          ? "translate-x-0 shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
-          : "-translate-x-5/6 shadow-[4px_0_10px_rgba(0,0,0,0.4)]"
+          ? "w-1/5 min-w[10rem] shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
+          : "w-0 min-w-0 p-0"
       }`}
     >
-      <MenuButton open={open} setOpen={setOpen} />
-      <div className="my-12 flex-1">
+      <div className="flex justify-center h-20">
+        <MenuButton open={open} setOpen={setOpen} />
+      </div>
+      <div className="my-12">
         <Logo testId="nav-panel-logo" className="ml-5" />
         <NavLinkList />
       </div>
