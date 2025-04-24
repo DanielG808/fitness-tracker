@@ -12,10 +12,10 @@ export default function NavigationPanel() {
   return (
     <aside
       data-testid="navigation-panel"
-      className={`flex flex-col bg-foreground-dark p-2 transition-all duration-300 overflow-hidden ${
+      className={`flex flex-col bg-foreground-dark transition-all duration-300 overflow-hidden ${
         open
-          ? "w-1/5 min-w[10rem] shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
-          : "w-16 shadow-[4px_0_10px_rgba(0,0,0,0.4)]"
+          ? "w-1/5 min-w[10rem] p-2 shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
+          : "w-0 min-w-0 p-0"
       }`}
     >
       <MenuButton open={open} setOpen={setOpen} />

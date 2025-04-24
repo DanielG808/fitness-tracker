@@ -2,7 +2,7 @@ import HamburgerButton from "./hamburger-button";
 
 export default function Header() {
   return (
-    <header className="bg-foreground-light flex flex-col justify-center items-start h-20 w-full">
+    <header className="bg-foreground-light flex justify-start items-center h-20">
       <HamburgerButton />
     </header>
   );

@@ -7,8 +7,8 @@ export default function HamburgerButton() {
   const { open, setOpen } = useNavigationPanelContext();
 
   return (
-    <button onClick={() => setOpen(!open)}>
-      <Bars3Icon className="h-10 w-10" />
+    <button className="cursor-pointer" onClick={() => setOpen(!open)}>
+      <Bars3Icon className={`h-10 w-10 ${open ? "hidden" : null}`} />
     </button>
   );
 }
