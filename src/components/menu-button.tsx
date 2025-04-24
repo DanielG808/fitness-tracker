@@ -9,7 +9,7 @@ export default function MenuButton({ open, setOpen }: MenuButtonProps) {
   return (
     <button
       data-testid="menu-button"
-      className="flex items-center cursor-pointer ml-auto"
+      className="cursor-pointer"
       onClick={() => setOpen(!open)}
     >
       <ChevronLeftIcon className="w-10 h-10" />

@@ -17,7 +17,7 @@ export default function NavigationPanel() {
           : "w-0 min-w-0 p-0"
       }`}
     >
-      <div className="flex justify-center h-20">
+      <div className="flex items-center justify-end h-20 pr-2">
         <MenuButton open={open} setOpen={setOpen} />
       </div>
       <div className="my-12">
