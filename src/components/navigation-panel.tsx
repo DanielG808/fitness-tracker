@@ -1,13 +1,13 @@
 "use client";
 
-import MenuButton from "./menu-button";
-import Logo from "./logo";
-import NavLinkList from "./nav-link-list";
-import Footer from "./footer";
 import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
 
-export default function NavigationPanel() {
-  const { open, setOpen } = useNavigationPanelContext();
+export default function NavigationPanel({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { open } = useNavigationPanelContext();
 
   return (
     <aside
@@ -18,14 +18,7 @@ export default function NavigationPanel() {
           : "w-0 min-w-0 p-0"
       }`}
     >
-      <div className="flex justify-center h-20">
-        <MenuButton open={open} setOpen={setOpen} />
-      </div>
-      <div className="my-12">
-        <Logo testId="nav-panel-logo" className="ml-5" />
-        <NavLinkList />
-      </div>
-      <Footer />
+      {children}
     </aside>
   );
 }
