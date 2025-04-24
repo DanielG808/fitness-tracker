@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased flex`}>
+      <body className={`${inter.className} antialiased flex h-screen`}>
         <NavigationPanelContextProvider>
           <NavigationPanel />
           <PageContentContainer>
