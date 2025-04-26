@@ -3,7 +3,7 @@ import Logo from "./logo";
 
 export default function Header() {
   return (
-    <header className="border-b-1 border-white/45 bg-foreground-light flex justify-start items-center h-20 pl-5 space-x-6 shadow-[4px_0_10px_rgba(0,0,0,0.6)]">
+    <header className="border-b-1 border-white/45 bg-foreground-light flex justify-start items-center text-center h-20 pl-5 space-x-6 shadow-[4px_0_10px_rgba(0,0,0,0.6)]">
       <HamburgerButton />
       <Logo testId="nav-panel-logo" />
     </header>

@@ -8,12 +8,12 @@ export default function HamburgerButton() {
 
   return (
     <button
-      className={`flex justify-center items-center w-14 h-14 rounded-full hover:bg-white/15 transition-all duration-300 cursor-pointer ${
+      className={`flex justify-center items-center w-8 h-8 sm:w-14 sm:h-14 rounded-full hover:bg-white/15 transition-all duration-300 cursor-pointer ${
         open ? "hidden" : null
       }`}
       onClick={() => setOpen(!open)}
     >
-      <Bars3Icon className={`h-10 w-10 `} />
+      <Bars3Icon className="h-8 w-8 sm:h-10 sm:w-10" />
     </button>
   );
 }

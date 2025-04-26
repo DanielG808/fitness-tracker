@@ -11,7 +11,10 @@ export default function Logo({ testId, className }: LogoProps) {
   return (
     <h1
       data-testid={testId}
-      className={cn(`text-5xl ${bebasNeue.className}`, className)}
+      className={cn(
+        `text-4xl sm:text-5xl whitespace-nowrap ${bebasNeue.className}`,
+        className
+      )}
     >
       <Link href={"/"}>
         Fitness <span className="italic">Tracker</span>
