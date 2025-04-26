@@ -1,5 +1,6 @@
 import { ComponentType, SVGProps } from "react";
 import Link from "next/link";
+import { useIsMobile } from "@/lib/hooks/useIsMobile";
 
 type NavLinkProps = {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -16,8 +17,10 @@ export default function NavLink({
   testId,
   closePanel,
 }: NavLinkProps) {
+  const isMobile = useIsMobile();
+
   function handleClick() {
-    if (window.innerWidth < 640) {
+    if (isMobile) {
       closePanel();
     }
   }
