@@ -10,7 +10,7 @@ export default function MenuButton() {
     <div className="flex items-center justify-end h-20 pr-2">
       <button
         data-testid="menu-button"
-        className="cursor-pointer"
+        className="flex justify-center items-center w-12 h-12 rounded-full hover:bg-white/15 cursor-pointer"
         onClick={() => setOpen(!open)}
       >
         <ChevronLeftIcon className="w-10 h-10" />
