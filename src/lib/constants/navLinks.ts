@@ -8,7 +8,7 @@ import {
 export const navLinks = [
   {
     icon: CalendarIcon,
-    name: "Workout Calendar",
+    name: "Calendar",
     path: "/",
   },
   {

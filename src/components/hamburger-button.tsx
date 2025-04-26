@@ -8,7 +8,7 @@ export default function HamburgerButton() {
 
   return (
     <button
-      className={`flex justify-center items-center w-16 h-16 rounded-full hover:bg-white/15 cursor-pointer ${
+      className={`flex justify-center items-center w-14 h-14 rounded-full hover:bg-white/15 transition-all duration-300 cursor-pointer ${
         open ? "hidden" : null
       }`}
       onClick={() => setOpen(!open)}
