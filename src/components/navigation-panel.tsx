@@ -1,12 +1,11 @@
 "use client";
 
 import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
+import Footer from "./footer";
+import MenuButton from "./menu-button";
+import NavLinkList from "./nav-link-list";
 
-export default function NavigationPanel({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function NavigationPanel() {
   const { open } = useNavigationPanelContext();
 
   return (
@@ -14,11 +13,13 @@ export default function NavigationPanel({
       data-testid="navigation-panel"
       className={`flex flex-col bg-foreground-dark transition-all duration-300 overflow-hidden ${
         open
-          ? "w-1/5 min-w[10rem] shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
+          ? "w-screen h-screen sm:w-1/5 sm:min-w[10rem] sm:h-auto shadow-[4px_0_10px_rgba(0,0,0,0.6)]"
           : "w-0 min-w-0 p-0"
       }`}
     >
-      {children}
+      <MenuButton />
+      <NavLinkList />
+      <Footer />
     </aside>
   );
 }
