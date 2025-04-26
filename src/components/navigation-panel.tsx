@@ -6,7 +6,7 @@ import MenuButton from "./menu-button";
 import NavLinkList from "./nav-link-list";
 
 export default function NavigationPanel() {
-  const { open } = useNavigationPanelContext();
+  const { open, setOpen } = useNavigationPanelContext();
 
   return (
     <aside
@@ -21,7 +21,7 @@ export default function NavigationPanel() {
       }`}
     >
       <MenuButton />
-      <NavLinkList />
+      <NavLinkList closePanel={() => setOpen(false)} />
       <Footer />
     </aside>
   );

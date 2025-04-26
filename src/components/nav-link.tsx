@@ -6,13 +6,27 @@ type NavLinkProps = {
   name: string;
   path: string;
   testId: string;
+  closePanel: () => void;
 };
 
-export default function NavLink({ Icon, name, path, testId }: NavLinkProps) {
+export default function NavLink({
+  Icon,
+  name,
+  path,
+  testId,
+  closePanel,
+}: NavLinkProps) {
+  function handleClick() {
+    if (window.innerWidth < 640) {
+      closePanel();
+    }
+  }
+
   return (
     <li
       data-testid={testId}
       key={path}
+      onClick={handleClick}
       className="flex items-center w-full h-16 px-3 space-x-4 rounded-full hover:bg-white/15 transition-all duration-300 cursor-pointer"
     >
       <Icon className="w-10 h-10 shrink-0" />
