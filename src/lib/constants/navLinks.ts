@@ -9,21 +9,21 @@ export const navLinks = [
   {
     icon: CalendarIcon,
     name: "Workout Calendar",
-    path: "/",
+    path: "/dashboard",
   },
   {
     icon: FireIcon,
     name: "Workouts",
-    path: "/workouts",
+    path: "/dashboard/workouts",
   },
   {
     icon: IdentificationIcon,
     name: "Profile",
-    path: "/profile",
+    path: "/dashboard/profile",
   },
   {
     icon: Cog8ToothIcon,
     name: "Settings",
-    path: "/settings",
+    path: "/dashboard/settings",
   },
 ];

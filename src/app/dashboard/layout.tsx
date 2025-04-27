@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { inter } from "@/lib/constants/fonts";
 import NavigationPanel from "@/components/navigation-panel";
 import NavigationPanelContextProvider from "@/contexts/navigation-panel-context";
