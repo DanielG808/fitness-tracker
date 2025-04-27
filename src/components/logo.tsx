@@ -13,7 +13,7 @@ export default function Logo({ testId, className }: LogoProps) {
       data-testid={testId}
       className={cn(`text-5xl ${bebasNeue.className}`, className)}
     >
-      <Link href={"/"}>
+      <Link href={"/dashboard"}>
         Fitness <span className="italic">Tracker</span>
       </Link>
     </h1>
