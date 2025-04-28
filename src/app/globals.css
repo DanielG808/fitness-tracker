@@ -5,10 +5,13 @@
   --foreground-dark: oklch(21% 0.006 285.885);
   --foreground-light: oklch(37% 0.013 285.805);
   --primary: oklch(76.8% 0.233 130.85);
+  --primary-dark: oklch(64.8% 0.2 131.684);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
   --color-foreground-dark: var(--foreground-dark);
   --color-foreground-light: var(--foreground-light);
   --font-sans: var(--font-geist-sans);
