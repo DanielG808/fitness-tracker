@@ -10,7 +10,7 @@ type PageHeaderProps = {
 
 export default function PageHeader({ title, action, className }: PageHeaderProps) {
   return (
-    <div className={cn("flex justify-between items-center", className)}>
+    <div className={cn("flex justify-between", className)}>
         <H2>{title}</H2>
         {action}    
     </div>
