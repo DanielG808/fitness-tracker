@@ -8,8 +8,8 @@ import {
 export const navLinks = [
   {
     icon: CalendarIcon,
-    name: "Workout Calendar",
-    path: "/dashboard",
+    name: "Calendar",
+    path: "/",
   },
   {
     icon: FireIcon,
