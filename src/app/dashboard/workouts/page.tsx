@@ -1,3 +1,7 @@
+import PageHeader from "@/components/page-header";
+
 export default function WorkoutsPage() {
-  return <div>WorkoutsPage</div>;
+  return <section className="text-black p-4">
+    <PageHeader title="Workouts" />
+  </section>;
 }
