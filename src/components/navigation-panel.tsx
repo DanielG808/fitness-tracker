@@ -15,7 +15,7 @@ export default function NavigationPanel() {
         open
           ? `w-screen h-screen 
           sm:w-1/3 sm:min-w-[12rem] sm:h-auto
-          xl:w-1/5 xl:min-w-[10rem] 
+          xl:w-1/5 xl:min-w-[10rem]
           shadow-[4px_0_10px_rgba(0,0,0,0.6)]`
           : "w-0 min-w-0 p-0"
       }`}
