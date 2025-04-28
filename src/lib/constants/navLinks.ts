@@ -9,7 +9,7 @@ export const navLinks = [
   {
     icon: CalendarIcon,
     name: "Calendar",
-    path: "/",
+    path: "/dashboard",
   },
   {
     icon: FireIcon,
