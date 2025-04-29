@@ -1,0 +1,18 @@
+import { Workout } from '@/lib/validations/workoutSchema';
+import CloseButton from './close-button'
+import WorkoutDetails from './workout-details'
+
+type WorkoutCardProps = {
+  workout: Workout;
+}
+
+export default function WorkoutCard({ workout }: WorkoutCardProps) {
+  const { title, duration, workoutList } = workout
+
+  return (
+    <article className="flex justify-between items-center bg-white w-2/3 h-28 p-4 rounded-lg shadow-md hover:shadow-lg duration-300">
+        <WorkoutDetails title={title} duration={duration} workoutList={workoutList} />
+        <CloseButton />
+    </article>
+  )
+}
