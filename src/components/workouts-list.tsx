@@ -7,7 +7,7 @@ const workouts =[
     workoutList: [
       "Running",
       "Swimming",
-      "Biking",
+      "Biking"
     ]
   },
   {
@@ -17,7 +17,16 @@ const workouts =[
       "Pull Ups",
       "Bicep Curls"
     ]
-  }
+  },
+  {
+    title: "Leg Day",
+    duration: 60,
+    workoutList: [
+      "Squats",
+      "Leg Press",
+      "Leg Extensions"
+    ]
+  },
 ]
 
 export default function WorkoutsList() {

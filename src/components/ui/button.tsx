@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils/cn"
 
 type ButtonProps = {
-    children: React.ReactNode
-    className?: string
+    children: React.ReactNode;
+    className?: string;
 }
 
 export default function Button({ children, className }: ButtonProps) {
