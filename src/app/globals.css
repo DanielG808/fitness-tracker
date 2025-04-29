@@ -2,6 +2,8 @@
 
 :root {
   --background: oklch(96.7% 0.001 286.375);
+  --background-light: oklch(87.1% 0.006 286.286);
+  --background-dark: oklch(70.5% 0.015 286.067);
   --foreground-dark: oklch(21% 0.006 285.885);
   --foreground-light: oklch(37% 0.013 285.805);
   --primary: oklch(76.8% 0.233 130.85);
@@ -10,6 +12,8 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-light: var(--background-light);
+  --color-background-dark: var(--background-dark);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
   --color-foreground-dark: var(--foreground-dark);
