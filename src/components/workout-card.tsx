@@ -1,7 +1,12 @@
+import { Workout } from '@/lib/validations/workoutSchema';
 import CloseButton from './close-button'
 import WorkoutDetails from './workout-details'
 
-export default function WorkoutCard({ workout }) {
+type WorkoutCardProps = {
+  workout: Workout;
+}
+
+export default function WorkoutCard({ workout }: WorkoutCardProps) {
   const { title, duration, workoutList } = workout
 
   return (

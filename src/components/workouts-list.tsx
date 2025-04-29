@@ -24,8 +24,11 @@ export default function WorkoutsList() {
   return (
     <ul className="flex flex-col items-center w-full space-y-4 m-10">
       {
-        workouts.map((workout) => (
-          <WorkoutCard workout={workout} />
+        workouts.map((workout, index) => (
+          <WorkoutCard key={index} workout={{
+            ...workout,
+            workoutList: workout.workoutList as [string, ...string[]]
+          }} />
         ))
       }
     </ul>

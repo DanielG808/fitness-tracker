@@ -1,6 +1,9 @@
+import { Workout } from "@/lib/validations/workoutSchema";
 import H2 from "./ui/h2";
 
-export default function WorkoutDetails({ title, duration, workoutList }) {
+type WorkoutDetailsProps = Workout
+
+export default function WorkoutDetails({ title, duration, workoutList }: WorkoutDetailsProps) {
   return (
     <div className="flex flex-col justify-between h-full">
         <header className="flex items-center">
