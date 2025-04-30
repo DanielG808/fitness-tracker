@@ -3,7 +3,7 @@ import Button from "./ui/button";
 
 export default function CloseButton() {
   return (
-        <Button className="flex items-center bg-white text-background-light hover:text-background-dark hover:bg-white">
+        <Button className="flex items-center bg-white p-0 text-background-light hover:text-background-dark hover:bg-white">
             <XMarkIcon className="h-6 w-6" />
         </Button>
   )
