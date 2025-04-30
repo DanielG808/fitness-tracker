@@ -11,11 +11,15 @@ export default function OpenModalButton() {
         setOpen(true)
     }
 
+    function closeModal() {
+      setOpen(false)
+    }
+
   return (
     <>
         <Button onClick={openModal} >+ New Workout</Button>
         {open && (
-            <Modal />
+            <Modal closeModal={closeModal} />
         )}
     </>
   )
