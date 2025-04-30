@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils/cn";
 
 type H2Props = {
     children: React.ReactNode;
-    className: string
+    className?: string
 }
 
 export default function H2({ children, className }: H2Props) {
