@@ -1,25 +1,17 @@
 "use client"
 
-import { useState } from "react";
 import Button from "./ui/button";
 import Modal from "./ui/modal";
+import { useModal } from "@/lib/hooks/useModal";
 
 export default function OpenModalButton() {
-    const [open, setOpen] = useState(false)
-
-    function openModal() {
-        setOpen(true)
-    }
-
-    function closeModal() {
-      setOpen(false)
-    }
+  const { open, openModal, closeModal} = useModal()
 
   return (
     <>
         <Button onClick={openModal} >+ New Workout</Button>
         {open && (
-            <Modal closeModal={closeModal} />
+            <Modal open={open} closeModal={closeModal} />
         )}
     </>
   )
