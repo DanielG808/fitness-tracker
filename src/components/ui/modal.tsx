@@ -27,7 +27,7 @@ export default function Modal({ open, closeModal }: ModalProps) {
           justifyContent: "center",
         }}
       >
-        <section className="bg-white w-full max-w-2xl p-6 rounded-2xl relative">
+        <section className="bg-white w-full max-w-2xl h-screen sm:h-auto rounded-none p-6 sm:rounded-2xl relative">
           <XButton onClick={closeModal} />
           Modal
         </section>
