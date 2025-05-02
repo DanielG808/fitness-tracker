@@ -6,14 +6,20 @@ import { useModal } from "@/lib/hooks/useModal";
 
 type OpenModalButtonProps = {
   text: string;
+  className?: string;
 };
 
-export default function OpenModalButton({ text }: OpenModalButtonProps) {
+export default function OpenModalButton({
+  text,
+  className,
+}: OpenModalButtonProps) {
   const { open, openModal, closeModal } = useModal();
 
   return (
     <>
-      <Button onClick={openModal}>{text}</Button>
+      <Button onClick={openModal} className={className}>
+        {text}
+      </Button>
       {open && <Modal open={open} closeModal={closeModal} />}
     </>
   );

@@ -7,7 +7,7 @@ export default function WorkoutsPage() {
     <section className="flex flex-col items-center text-black p-4">
       <PageHeader
         title="Workouts"
-        action={<OpenModalButton text="+ New Workout" />}
+        action={<OpenModalButton text="+ New Workout" className="mt-6" />}
       />
       <WorkoutsList />
     </section>
