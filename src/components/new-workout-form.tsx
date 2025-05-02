@@ -1,9 +1,10 @@
+import Form from "./ui/form";
 import Input from "./ui/input";
 
 export default function NewWorkoutForm() {
   return (
-    <form className="flex flex-col text-black">
+    <Form>
         <Input name="Title" placeholder="Enter your workout title..." />
-    </form>
+    </Form>
   )
 }
