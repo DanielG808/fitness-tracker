@@ -10,7 +10,7 @@ export default function WorkoutDetails({
 }: WorkoutDetailsProps) {
   return (
     <div className="flex flex-col justify-between h-full w-full px-2">
-      <header className="flex flex-col justify-between h-full sm:flex-row ">
+      <header className="flex flex-col justify-between h-full sm:h-auto sm:justify-start sm:flex-row sm:items-center">
         <H2 className="text-xl font-semibold">{title}</H2>
         <span className="mt-1 sm:mt-0 sm:ml-2 font-semibold text-black/75">{`${duration} mins`}</span>
       </header>
