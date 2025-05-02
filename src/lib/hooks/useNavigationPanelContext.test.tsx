@@ -19,7 +19,7 @@ function TestComponent() {
   );
 }
 
-describe("useNavigationPanelContext hook", () => {
+describe("useNavigationPanelContext", () => {
   it("provides default context value and allows toggling", () => {
     render(
       <NavigationPanelContextProvider>

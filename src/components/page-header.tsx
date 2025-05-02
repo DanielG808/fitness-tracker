@@ -1,17 +1,26 @@
-import { cn } from "@/lib/utils/cn"
-import H2 from "./ui/h2"
+import { cn } from "@/lib/utils/cn";
+import H2 from "./ui/h2";
 
 type PageHeaderProps = {
-    title: string;
-    action?: React.ReactNode;
-    className?: string;
-}
+  title: string;
+  action?: React.ReactNode;
+  className?: string;
+};
 
-export default function PageHeader({ title, action, className }: PageHeaderProps) {
+export default function PageHeader({
+  title,
+  action,
+  className,
+}: PageHeaderProps) {
   return (
-    <div className={cn("flex justify-between w-full", className)}>
-        <H2>{title}</H2>
-        {action}    
+    <div
+      className={cn(
+        "flex flex-col sm:flex-row justify-between w-full",
+        className
+      )}
+    >
+      <H2>{title}</H2>
+      {action}
     </div>
-  )
+  );
 }
