@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
+import { useModal } from "@/lib/hooks/useModal";
 
 type InputField = {
   name: string;
@@ -27,6 +28,7 @@ const workoutFormInputs: InputField[] = [
 
 export default function NewWorkoutForm() {
   const [inputs, setInputs] = useState<InputField[]>(workoutFormInputs);
+  const { closeModal } = useModal();
 
   function addExercise() {
     const exercise = {
@@ -51,7 +53,9 @@ export default function NewWorkoutForm() {
       </Button>
       <div className="border-t-1 border-background-dark/25 my-4" />
       <Button type="submit">Submit</Button>
-      <Button style="secondary">Cancel</Button>
+      <Button onClick={closeModal} style="secondary">
+        Cancel
+      </Button>
     </Form>
   );
 }
