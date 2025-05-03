@@ -3,14 +3,15 @@ import { cn } from "@/lib/utils/cn";
 type ButtonVariant = "primary" | "secondary";
 
 type ButtonProps = {
-  style: ButtonVariant;
+  type?: "button" | "submit" | "reset";
+  style?: ButtonVariant;
   children: React.ReactNode;
   onClick: () => void;
   className?: string;
 };
 
 const baseStyles =
-  "flex justify-center p-3 rounded-md text-center duration-300 cursor-pointer";
+  "flex justify-center items-center p-3 rounded-md duration-300 cursor-pointer";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-primary text-background hover:text-white hover:bg-primary-dark",
@@ -19,6 +20,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 export default function Button({
+  type = "button",
   style = "primary",
   children,
   onClick,
@@ -26,6 +28,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
+      type={type}
       onClick={onClick}
       className={cn(baseStyles, variantStyles[style], className)}
     >

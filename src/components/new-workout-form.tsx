@@ -26,13 +26,8 @@ export default function NewWorkoutForm() {
       ))}
       <AddInputButton text="+ Add exercise" />
       <div className="border-t-1 border-background-dark/25 my-4" />
-      <Button>Submit</Button>
-      <Button
-        style="secondary"
-        // className="bg-background-light/65 text-black/75 hover:bg-background-light hover:text-black/75"
-      >
-        Cancel
-      </Button>
+      <Button type="submit">Submit</Button>
+      <Button style="secondary">Cancel</Button>
     </Form>
   );
 }
