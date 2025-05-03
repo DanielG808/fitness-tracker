@@ -1,8 +1,16 @@
+"use client";
+
+import { useState } from "react";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
 
-const workoutFormInputs = [
+type InputField = {
+  name: string;
+  placeholder: string;
+};
+
+const workoutFormInputs: InputField[] = [
   {
     name: "Workout Title",
     placeholder: "Enter your workout title...",
@@ -18,12 +26,27 @@ const workoutFormInputs = [
 ];
 
 export default function NewWorkoutForm() {
+  const [inputs, setInputs] = useState<InputField[]>(workoutFormInputs);
+
+  function addExercise() {
+    const exercise = {
+      name: "Exercise",
+      placeholder: "Enter an exercise...",
+    };
+
+    setInputs((prev) => [...prev, exercise]);
+  }
+
   return (
     <Form>
-      {workoutFormInputs.map(({ name, placeholder }, index) => (
+      {inputs.map(({ name, placeholder }, index) => (
         <Input key={index} name={name} placeholder={placeholder} />
       ))}
-      <Button style="secondary" className="text-sm h-8 my-2 w-fit">
+      <Button
+        onClick={addExercise}
+        style="secondary"
+        className="text-sm h-8 my-2 w-fit"
+      >
         + Add exercise
       </Button>
       <div className="border-t-1 border-background-dark/25 my-4" />
