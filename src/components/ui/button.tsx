@@ -8,6 +8,8 @@ type ButtonProps = {
 
 export default function Button({ children, onClick, className }: ButtonProps) {
   return (
-    <button onClick={onClick} className={cn("bg-primary p-3 rounded-md text-background hover:text-white hover:bg-primary-dark duration-300 cursor-pointer", className)}>{children}</button>
+    <button onClick={onClick} className={cn("flex items-center justify-center bg-primary p-3 rounded-md text-center text-background hover:text-white hover:bg-primary-dark duration-300 cursor-pointer", className)}>
+      {children}
+    </button>
   )
 }
