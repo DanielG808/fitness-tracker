@@ -15,7 +15,7 @@ export default function PageHeader({
   return (
     <div
       className={cn(
-        "flex flex-col sm:flex-row justify-between w-full",
+        "flex flex-col sm:flex-row h-full justify-between items-center w-full",
         className
       )}
     >

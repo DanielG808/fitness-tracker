@@ -9,7 +9,11 @@ export default function WorkoutsPage() {
       <PageHeader
         title="Workouts"
         action={
-        <OpenModalButton text="+ New Workout" className="mt-6" modalContent={<NewWorkoutForm />} />
+          <OpenModalButton
+            text="+ New Workout"
+            className="mt-6 sm:mt-0"
+            modalContent={<NewWorkoutForm />}
+          />
         }
       />
       <WorkoutsList />
