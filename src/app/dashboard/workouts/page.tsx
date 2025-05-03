@@ -1,5 +1,4 @@
-import NewWorkoutForm from "@/components/new-workout-form";
-import OpenModalButton from "@/components/open-modal-button";
+import NewWorkoutModal from "@/components/new-workout-modal";
 import PageHeader from "@/components/page-header";
 import WorkoutsList from "@/components/workouts-list";
 
@@ -9,10 +8,9 @@ export default function WorkoutsPage() {
       <PageHeader
         title="Workouts"
         action={
-          <OpenModalButton
-            text="+ New Workout"
+          <NewWorkoutModal
+            buttonText="+ New Workout"
             className="mt-6 sm:mt-0 w-full sm:w-auto"
-            modalContent={<NewWorkoutForm />}
           />
         }
       />
