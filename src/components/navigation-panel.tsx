@@ -1,9 +1,9 @@
 "use client";
 
-import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
 import Footer from "./footer";
 import MenuButton from "./menu-button";
 import NavLinkList from "./nav-link-list";
+import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
 
 export default function NavigationPanel() {
   const { open, setOpen } = useNavigationPanelContext();

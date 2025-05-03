@@ -12,7 +12,12 @@ type ModalProps = {
   heading: string;
 };
 
-export default function Modal({ open, closeModal, heading, children }: ModalProps) {
+export default function Modal({
+  open,
+  closeModal,
+  heading,
+  children,
+}: ModalProps) {
   const { mounted, containerRect } = usePageContentRect();
   if (!mounted || !open || !containerRect) return null;
 
@@ -31,7 +36,7 @@ export default function Modal({ open, closeModal, heading, children }: ModalProp
         }}
       >
         <section className="bg-white w-full max-w-2xl h-screen sm:h-auto rounded-none p-6 sm:rounded-2xl relative space-y-2">
-          <div className="flex w-full justify-between items-center">
+          <div className="flex w-full justify-between items-start">
             <H2 className="text-black text-xl mb-4">{heading}</H2>
             <XButton onClick={closeModal} />
           </div>

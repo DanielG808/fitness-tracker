@@ -11,7 +11,7 @@ export default function WorkoutsPage() {
         action={
           <OpenModalButton
             text="+ New Workout"
-            className="mt-6 sm:mt-0"
+            className="mt-6 sm:mt-0 w-full sm:w-auto"
             modalContent={<NewWorkoutForm />}
           />
         }

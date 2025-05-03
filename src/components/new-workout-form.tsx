@@ -1,4 +1,3 @@
-import AddInputButton from "./add-input-button";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
@@ -24,7 +23,9 @@ export default function NewWorkoutForm() {
       {workoutFormInputs.map(({ name, placeholder }, index) => (
         <Input key={index} name={name} placeholder={placeholder} />
       ))}
-      <AddInputButton text="+ Add exercise" />
+      <Button style="secondary" className="text-sm h-8 my-2 w-fit">
+        + Add exercise
+      </Button>
       <div className="border-t-1 border-background-dark/25 my-4" />
       <Button type="submit">Submit</Button>
       <Button style="secondary">Cancel</Button>

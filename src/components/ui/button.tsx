@@ -11,7 +11,7 @@ type ButtonProps = {
 };
 
 const baseStyles =
-  "flex justify-center items-center p-3 rounded-md duration-300 cursor-pointer";
+  "flex justify-center items-center p-3 rounded-md w-auto duration-300 cursor-pointer";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-primary text-background hover:text-white hover:bg-primary-dark",
