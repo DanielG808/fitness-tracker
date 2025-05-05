@@ -6,7 +6,7 @@ import NewWorkoutModal from "./new-workout-modal";
 
 type PageHeaderProps = {
   title: string;
-  action: boolean;
+  action?: boolean;
   className?: string;
 };
 
