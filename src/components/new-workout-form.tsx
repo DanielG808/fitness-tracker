@@ -20,6 +20,10 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     inputMinimum
   );
 
+  function handleSubmit() {
+    console.log("Submitting!");
+  }
+
   return (
     <Form>
       {/* Inputs */}
@@ -49,7 +53,9 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
       <LineBreak />
 
       {/* Submit/Cancel nuttons */}
-      <Button type="submit">Add Workout</Button>
+      <Button onClick={handleSubmit} type="submit">
+        Add Workout
+      </Button>
       <Button onClick={closeModal} style="secondary">
         Cancel
       </Button>
