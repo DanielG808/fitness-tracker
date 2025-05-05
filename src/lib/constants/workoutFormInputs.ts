@@ -3,6 +3,8 @@ export type InputField = {
   placeholder: string;
 };
 
+export const inputMinimum = 3;
+
 export const workoutFormInputs: InputField[] = [
   {
     name: "Workout Title",

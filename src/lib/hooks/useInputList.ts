@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { InputField } from "../constants/workoutFormInputs";
 
-export function useInputList(initialInputs: InputField[]) {
+export function useInputList(initialInputs: InputField[], inputMinimum: number) {
   const [inputs, setInputs] = useState<InputField[]>(initialInputs);
-  const inputMin = 3;
 
   function addInput(name: string, placeholder: string) {
     const input = {
@@ -15,7 +14,7 @@ export function useInputList(initialInputs: InputField[]) {
   }
 
   function removeInput() {
-    if (inputs.length > inputMin) {
+    if (inputs.length > inputMinimum) {
       setInputs(prev => prev.slice(0, -1));
     }
   }
