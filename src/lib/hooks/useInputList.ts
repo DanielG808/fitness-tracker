@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { InputField } from "../constants/workoutFormInputs";
 
-export function useAddInput(initialInputs: InputField[]) {
+export function useInputList(initialInputs: InputField[], inputMinimum: number) {
   const [inputs, setInputs] = useState<InputField[]>(initialInputs);
 
   function addInput(name: string, placeholder: string) {
@@ -13,5 +13,11 @@ export function useAddInput(initialInputs: InputField[]) {
     setInputs((prev) => [...prev, input]);
   }
 
-  return { inputs, addInput };
+  function removeInput() {
+    if (inputs.length > inputMinimum) {
+      setInputs(prev => prev.slice(0, -1));
+    }
+  }
+
+  return { inputs, addInput, removeInput };
 }

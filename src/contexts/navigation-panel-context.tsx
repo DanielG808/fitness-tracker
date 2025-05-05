@@ -1,7 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/lib/hooks/useIsMobile";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 type NavigationPanelContextType = {
   open: boolean;
