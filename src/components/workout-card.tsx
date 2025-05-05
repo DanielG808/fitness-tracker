@@ -1,3 +1,5 @@
+"use client";
+
 import { Workout } from "@/lib/validations/workoutSchema";
 import WorkoutDetails from "./workout-details";
 import XButton from "./x-button";
