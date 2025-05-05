@@ -1,33 +1,35 @@
-import AddInputButton from "./add-input-button";
+"use client";
+
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
+import { workoutFormInputs } from "@/lib/constants/workoutFormInputs";
+import { useAddInput } from "@/lib/hooks/useAddInput";
 
-const workoutFormInputs = [
-    {
-        name: "Workout Title",
-        placeholder: "Enter your workout title...",
-    },
-    {
-        name: "Total Time",
-        placeholder: "Enter your workout length...",
-    },
-    {
-        name: "Exercise",
-        placeholder: "Enter an exercise...",
-    },
-]
+type NewWorkoutFormProps = {
+  closeModal: () => void;
+};
 
-export default function NewWorkoutForm() {
+export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
+  const { inputs, addInput } = useAddInput(workoutFormInputs);
+
   return (
     <Form>
-        {workoutFormInputs.map(({ name, placeholder }, index) => (
-            <Input key={index} name={name} placeholder={placeholder} />
-        ))}
-        <AddInputButton text="+ Add exercise" />
-        <div className="border-t-1 border-background-dark/25 my-4" />
-        <Button>Submit</Button>
-        <Button>Cancel</Button>
+      {inputs.map(({ name, placeholder }, index) => (
+        <Input key={index} name={name} placeholder={placeholder} />
+      ))}
+      <Button
+        onClick={() => addInput("Exercise", "Enter an exercise...")}
+        style="secondary"
+        className="text-sm h-8 my-2 w-fit"
+      >
+        + Add exercise
+      </Button>
+      <div className="border-t-1 border-background-dark/25 my-4" />
+      <Button type="submit">Add Workout</Button>
+      <Button onClick={closeModal} style="secondary">
+        Cancel
+      </Button>
     </Form>
-  )
+  );
 }

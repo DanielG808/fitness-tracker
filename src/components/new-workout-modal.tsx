@@ -6,29 +6,26 @@ import Modal from "./ui/modal";
 import { useModal } from "@/lib/hooks/useModal";
 
 type OpenModalButtonProps = {
-  text: string;
+  buttonText: string;
   className?: string;
-  modalContent: React.ReactNode;
 };
 
-export default function OpenModalButton({
-  text,
+export default function NewWorkoutModal({
+  buttonText,
   className,
-  modalContent
 }: OpenModalButtonProps) {
   const { open, openModal, closeModal } = useModal();
 
   return (
     <>
       <Button onClick={openModal} className={className}>
-        {text}
+        {buttonText}
       </Button>
-      {
-        open && 
+      {open && (
         <Modal open={open} closeModal={closeModal} heading="Add New Workout">
-          {modalContent}
+          <NewWorkoutForm closeModal={closeModal} />
         </Modal>
-      }
+      )}
     </>
   );
 }

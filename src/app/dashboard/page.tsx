@@ -1,3 +1,9 @@
+import PageHeader from "@/components/page-header";
+
 export default function Home() {
-  return <main>Fitness</main>;
+  return (
+    <section className="flex flex-col items-center text-black p-4">
+      <PageHeader title="Calendar" />
+    </section>
+  );
 }

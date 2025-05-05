@@ -1,20 +1,27 @@
-"use client"
+"use client";
 
-import { createContext, useState } from "react"
+import { useIsMobile } from "@/lib/hooks/useIsMobile";
+import { createContext, useEffect, useState } from "react";
 
 type NavigationPanelContextType = {
-    open: boolean;
-    setOpen: (value: boolean) => void;
-}
+  open: boolean;
+  setOpen: (value: boolean) => void;
+};
 
-export const NavigationPanelContext = createContext<NavigationPanelContextType | undefined>(undefined)
+export const NavigationPanelContext = createContext<
+  NavigationPanelContextType | undefined
+>(undefined);
 
-export default function NavigationPanelContextProvider({ children }: { children: React.ReactNode}) {
-  const [open, setOpen] = useState(true)
+export default function NavigationPanelContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(true);
 
   return (
     <NavigationPanelContext.Provider value={{ open, setOpen }}>
-        {children}
+      {children}
     </NavigationPanelContext.Provider>
-  )
+  );
 }
