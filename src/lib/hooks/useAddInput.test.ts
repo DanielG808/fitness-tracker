@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react";
-import { useAddInput } from "./useAddInput";
+import { useAddInput } from "./useInputList";
 
 describe("useAddInput", () => {
   it("initializes with the provided inputs", () => {
