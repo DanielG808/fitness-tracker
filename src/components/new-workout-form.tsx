@@ -3,9 +3,9 @@
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
+import LineBreak from "./ui/line-break";
 import { inputMinimum, workoutFormInputs } from "@/lib/constants/workoutFormInputs";
 import { useInputList } from "@/lib/hooks/useInputList";
-import LineBreak from "./ui/line-break";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -16,11 +16,13 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 
   return (
     <Form>
+      {/* Inputs */}
       {inputs.map(({ name, placeholder }, index) => (
         <Input key={index} name={name} placeholder={placeholder} />
       ))}
       <div className="flex flex-col sm:flex-row space-x-2">
 
+      {/* Add/Remove exercise input buttons */}
       <Button
         onClick={() => addInput("Exercise", "Enter an exercise...")}
         style="secondary"
@@ -39,7 +41,10 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         </Button>
       }
       </div>
+
       <LineBreak />
+
+      {/* Submit/Cancel nuttons */}
       <Button type="submit">Add Workout</Button>
       <Button onClick={closeModal} style="secondary">
         Cancel
