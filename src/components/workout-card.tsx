@@ -9,7 +9,7 @@ type WorkoutCardProps = {
 };
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
-  const { title, duration, workoutList } = workout;
+  const { title, duration, exerciseList } = workout;
 
   function deleteWorkoutCard() {
     console.log("Deleting!");
@@ -21,7 +21,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
         <WorkoutDetails
           title={title}
           duration={duration}
-          workoutList={workoutList}
+          exerciseList={exerciseList}
         />
         <XButton onClick={deleteWorkoutCard} />
       </article>
