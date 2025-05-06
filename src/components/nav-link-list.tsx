@@ -8,7 +8,7 @@ type NavLinkListProps = {
 export default function NavLinkList({ closePanel }: NavLinkListProps) {
   return (
     <nav>
-      <ul className="flex flex-col mx-16 mt-10 sm:mx-6 md:mx-12 xl:mx-16 space-y-5 text-xl transition-all">
+      <ul className="flex flex-col mt-5 mx-16 sm:mx-6 mt-7 md:mx-12 mt-10 xl:mx-16 space-y-5 text-xl transition-all">
         {navLinks.map(({ icon: Icon, name, path }) => (
           <NavLink
             testId={`nav-${path.replace(/\//g, "") || "home"}`}
