@@ -4,6 +4,7 @@ import XButton from "../x-button";
 import { createPortal } from "react-dom";
 import { usePageContentRect } from "@/lib/hooks/usePageContentRect";
 import H2 from "./h2";
+import { useEffect } from "react";
 
 type ModalProps = {
   open: boolean;
@@ -19,6 +20,19 @@ export default function Modal({
   children,
 }: ModalProps) {
   const { mounted, containerRect } = usePageContentRect();
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    } 
+  }, [open])
+
   if (!mounted || !open || !containerRect) return null;
 
   return createPortal(
