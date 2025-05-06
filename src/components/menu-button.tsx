@@ -7,7 +7,6 @@ export default function MenuButton() {
   const { open, setOpen } = useNavigationPanelContext();
 
   return (
-    <div className="flex items-center justify-end h-20 pr-2">
       <button
         data-testid="menu-button"
         className="flex justify-center items-center w-12 h-12 rounded-full hover:bg-white/15 transition-all duration-300 cursor-pointer"
@@ -15,6 +14,5 @@ export default function MenuButton() {
       >
         <ChevronLeftIcon className="w-10 h-10" />
       </button>
-    </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Footer from "./footer";
+import Logo from "./logo";
 import MenuButton from "./menu-button";
 import NavLinkList from "./nav-link-list";
 import { useNavigationPanelContext } from "@/lib/hooks/useNavigationPanelContext";
@@ -20,7 +21,10 @@ export default function NavigationPanel() {
           : "w-0 min-w-0 p-0"
       }`}
     >
-      <MenuButton />
+      <div className="flex items-center justify-between sm:justify-end h-20 p-2">
+        <Logo testId="nav-panel-logo" className="p-4 sm:hidden" />
+        <MenuButton />
+      </div>
       <NavLinkList closePanel={() => setOpen(false)} />
       <Footer />
     </aside>
