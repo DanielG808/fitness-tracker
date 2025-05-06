@@ -15,7 +15,7 @@ export default function Logo({ testId, closePanel, className }: LogoProps) {
   const isMobile = useIsMobile()
 
   function handleClick() {
-    if (isMobile) {
+    if (isMobile && closePanel) {
       closePanel()
     }
   }
