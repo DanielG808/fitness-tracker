@@ -27,9 +27,14 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   return (
     <Form>
       {/* Inputs */}
-      {inputs.map(({ name, placeholder }, index) => (
-        <Input key={index} name={name} placeholder={placeholder} />
-      ))}
+      {inputs.map(({ name, placeholder }, index) => {
+        const isExercise = index >= 2;
+        const exerciseCount = inputs.length -2;
+        const number = index - 1
+
+        return (
+        <Input key={index} name={isExercise ? exerciseCount > 1 ? `Exercise #${number}`: "Exercise" :  name} placeholder={placeholder} />
+      )})}
       <div className="flex flex-col sm:flex-row space-x-2">
         {/* Add/Remove exercise input buttons */}
         <Button
