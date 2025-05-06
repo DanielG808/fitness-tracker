@@ -7,7 +7,7 @@ import Link from "next/link";
 
 type LogoProps = {
   testId: string;
-  closePanel: () => void;
+  closePanel?: () => void;
   className?: string;
 };
 
