@@ -3,7 +3,8 @@ import { InputField } from "../constants/workoutFormInputs";
 
 export function useInputList(
   initialInputs: InputField[],
-  inputMinimum: number
+  inputMinimum: number,
+  inputMaximum: number
 ) {
   const [inputs, setInputs] = useState<InputField[]>(initialInputs);
 
@@ -13,7 +14,12 @@ export function useInputList(
       placeholder,
     };
 
-    setInputs((prev) => [...prev, input]);
+    setInputs((prev) => {
+      if (prev.length < inputMaximum) {
+        return [...prev, input];
+      }
+      return prev;
+    });
   }
 
   function removeInput() {

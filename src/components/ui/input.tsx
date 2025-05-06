@@ -1,11 +1,14 @@
+import { cn } from "@/lib/utils/cn";
+
 type InputProps = {
   name: string;
   placeholder?: string;
+  className?: string;
 };
 
-export default function Input({ name, placeholder }: InputProps) {
+export default function Input({ name, placeholder, className }: InputProps) {
   return (
-    <div className="flex flex-col space-y-1">
+    <div className={cn("flex flex-col flex-grow space-y-1", className)}>
       <label htmlFor={name} className="text-md font-semibold text-gray-700">
         {`${name.charAt(0).toUpperCase()}${name.slice(1)}:`}
       </label>
