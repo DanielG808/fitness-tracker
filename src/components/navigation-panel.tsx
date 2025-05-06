@@ -22,7 +22,7 @@ export default function NavigationPanel() {
       }`}
     >
       <div className="flex items-center justify-between sm:justify-end h-20 p-2">
-        <Logo testId="nav-panel-logo" className="p-4 sm:hidden" />
+        <Logo testId="nav-panel-logo" closePanel={() => setOpen(false)} className="p-4 sm:hidden" />
         <MenuButton />
       </div>
       <NavLinkList closePanel={() => setOpen(false)} />
