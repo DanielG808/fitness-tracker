@@ -18,7 +18,7 @@ export default function PageHeader({
   return (
     <header
       className={cn(
-        "flex flex-col sm:flex-row h-full justify-between items-start w-full",
+        "flex flex-col sm:flex-row justify-between items-start w-full",
         className
       )}
     >
