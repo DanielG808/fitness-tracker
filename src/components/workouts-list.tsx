@@ -96,7 +96,7 @@ const workouts = [
 export default function WorkoutsList() {
   return (
     <div className="h-screen w-full overflow-y-auto">
-      <ul className="flex flex-col items-center space-y-4 m-4 sm:m-10">
+      <ul className="flex flex-col items-center space-y-4 my-4 sm:m-10">
         {workouts.map((workout, index) => (
           <WorkoutCard
             key={index}
