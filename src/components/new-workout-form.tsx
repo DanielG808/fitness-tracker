@@ -6,6 +6,7 @@ import Input from "./ui/input";
 import LineBreak from "./ui/line-break";
 import {
   inputMinimum,
+  inputMaximum,
   workoutFormInputs,
 } from "@/lib/constants/workoutFormInputs";
 import { useInputList } from "@/lib/hooks/useInputList";
@@ -17,7 +18,8 @@ type NewWorkoutFormProps = {
 export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   const { inputs, addInput, removeInput } = useInputList(
     workoutFormInputs,
-    inputMinimum
+    inputMinimum,
+    inputMaximum
   );
 
   function handleSubmit() {
@@ -30,18 +32,23 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
       {inputs.map(({ name, placeholder }, index) => {
         const isExercise = index >= 2;
         const exerciseCount = inputs.length - 2;
-        const number = index - 1
+        const number = index - 1;
 
         return (
-        <Input key={index}
-              name={isExercise ? 
-                      exerciseCount > 1 ?
-                      `Exercise #${number}`: "Exercise"
-                    : name} 
-              placeholder={placeholder} 
-        />
-      )})}
-      
+          <Input
+            key={index}
+            name={
+              isExercise
+                ? exerciseCount > 1
+                  ? `Exercise #${number}`
+                  : "Exercise"
+                : name
+            }
+            placeholder={placeholder}
+          />
+        );
+      })}
+
       {/* Add/Remove exercise input buttons */}
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
