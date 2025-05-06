@@ -34,18 +34,36 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         const exerciseCount = inputs.length - 2;
         const number = index - 1;
 
+        if (!isExercise) {
+          return <Input key={index} name={name} placeholder={placeholder} />;
+        }
+
         return (
-          <Input
-            key={index}
-            name={
-              isExercise
-                ? exerciseCount > 1
-                  ? `Exercise #${number}`
-                  : "Exercise"
-                : name
-            }
-            placeholder={placeholder}
-          />
+          <div key={index} className="flex space-x-1">
+            <Input
+              key={index}
+              name={
+                isExercise
+                  ? exerciseCount > 1
+                    ? `Exercise #${number}`
+                    : "Exercise"
+                  : name
+              }
+              placeholder={placeholder}
+              className="flex-grow"
+            />
+
+            <Input
+              name="Minutes"
+              placeholder="eg. 10"
+              className="w-20 sm:w-10 shrink-0"
+            />
+            <Input
+              name="Reps"
+              placeholder="eg. 10"
+              className="w-20 sm:w-10 shrink-0"
+            />
+          </div>
         );
       })}
 
