@@ -28,45 +28,8 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 
   return (
     <Form>
-      {/* Inputs */}
-      {inputs.map(({ name, placeholder }, index) => {
-        const isExercise = index >= 2;
-        const exerciseCount = inputs.length - 2;
-        const number = index - 1;
-
-        if (!isExercise) {
-          return <Input key={index} name={name} placeholder={placeholder} />;
-        }
-
-        return (
-          <div key={index} className="flex space-x-1">
-            <Input
-              key={index}
-              name={
-                isExercise
-                  ? exerciseCount > 1
-                    ? `Exercise #${number}`
-                    : "Exercise"
-                  : name
-              }
-              placeholder={placeholder}
-              className="flex-grow"
-            />
-
-            <Input
-              name="Minutes"
-              placeholder="eg. 10"
-              className="w-20 sm:w-10 shrink-0"
-            />
-            <Input
-              name="Reps"
-              placeholder="eg. 10"
-              className="w-20 sm:w-10 shrink-0"
-            />
-          </div>
-        );
-      })}
-
+      <WorkoutFormInputs inputs={inputs} />
+      
       {/* Add/Remove exercise input buttons */}
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
@@ -98,4 +61,52 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
       </Button>
     </Form>
   );
+}
+
+type WorkoutFormInputsProps = {
+  inputs: { name:string; placeholder: string }[]
+}
+
+function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
+  return (
+    <>
+      {inputs.map(({ name, placeholder }, index) => {
+        const isExercise = index >= 2;
+        const exerciseCount = inputs.length - 2;
+        const number = index - 1;
+      
+        if (!isExercise) {
+          return <Input key={index} name={name} placeholder={placeholder} />;
+        }
+      
+        return (
+          <div key={index} className="flex space-x-1">
+            <Input
+              key={index}
+              name={
+                isExercise
+                  ? exerciseCount > 1
+                    ? `Exercise #${number}`
+                    : "Exercise"
+                  : name
+              }
+              placeholder={placeholder}
+              className="flex-grow"
+            />
+      
+            <Input
+              name="Minutes"
+              placeholder="eg. 10"
+              className="w-20 sm:w-10 shrink-0"
+            />
+            <Input
+              name="Reps"
+              placeholder="eg. 10"
+              className="w-20 sm:w-10 shrink-0"
+            />
+          </div>
+      );
+    })}
+    </>
+  )
 }
