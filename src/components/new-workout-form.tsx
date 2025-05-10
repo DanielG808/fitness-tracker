@@ -30,6 +30,13 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   return (
     <Form>
       <WorkoutFormInputs inputs={inputs} />
+<<<<<<< HEAD
+      <ExerciseInputButtons
+        inputs={inputs}
+        addInput={addInput}
+        removeInput={removeInput}
+      />
+=======
 
       {/* Add/Remove exercise input buttons */}
       <div className="flex flex-col sm:flex-row space-x-2">
@@ -51,15 +58,9 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         )}
       </div>
 
+>>>>>>> b22992c5da36760ab942dbc5b4266571c9a24ef6
       <LineBreak />
-
-      {/* Submit/Cancel nuttons */}
-      <Button onClick={handleSubmit} type="submit">
-        Add Workout
-      </Button>
-      <Button onClick={closeModal} style="secondary">
-        Cancel
-      </Button>
+      <FormButtons closeModal={closeModal} handleSubmit={handleSubmit} />
     </Form>
   );
 }
@@ -126,4 +127,58 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
       })}
     </>
   );
+<<<<<<< HEAD
+}
+
+type ExerciseInputButtonsProps = {
+  inputs: { name: string; placeholder: string }[];
+  addInput: (name: string, placeholder: string) => void;
+  removeInput: () => void;
+};
+
+function ExerciseInputButtons({
+  inputs,
+  addInput,
+  removeInput,
+}: ExerciseInputButtonsProps) {
+  return (
+    <div className="flex flex-col sm:flex-row space-x-2">
+      <Button
+        onClick={() => addInput("Exercise", "Enter an exercise...")}
+        style="secondary"
+        className="text-sm h-8 my-2 w-40"
+      >
+        + Add exercise
+      </Button>
+      {inputs.length > inputMinimum && (
+        <Button
+          onClick={() => removeInput()}
+          style="secondary"
+          className="text-sm h-8 my-2 w-40"
+        >
+          - Remove exercise
+        </Button>
+      )}
+    </div>
+  );
+}
+
+type FormButtonsProps = {
+  closeModal: () => void;
+  handleSubmit: () => void;
+};
+
+function FormButtons({ closeModal, handleSubmit }: FormButtonsProps) {
+  return (
+    <>
+      <Button onClick={handleSubmit} type="submit">
+        Add Workout
+      </Button>
+      <Button onClick={closeModal} style="secondary">
+        Cancel
+      </Button>
+    </>
+  );
+=======
+>>>>>>> b22992c5da36760ab942dbc5b4266571c9a24ef6
 }
