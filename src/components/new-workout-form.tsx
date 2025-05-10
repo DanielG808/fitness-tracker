@@ -29,30 +29,14 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   return (
     <Form>
       <WorkoutFormInputs inputs={inputs} />
-      
-      {/* Add/Remove exercise input buttons */}
-      <div className="flex flex-col sm:flex-row space-x-2">
-        <Button
-          onClick={() => addInput("Exercise", "Enter an exercise...")}
-          style="secondary"
-          className="text-sm h-8 my-2 w-40"
-        >
-          + Add exercise
-        </Button>
-        {inputs.length > inputMinimum && (
-          <Button
-            onClick={() => removeInput()}
-            style="secondary"
-            className="text-sm h-8 my-2 w-40"
-          >
-            - Remove exercise
-          </Button>
-        )}
-      </div>
-
+      <ExerciseInputButtons
+        inputs={inputs}
+        addInput={addInput}
+        removeInput={removeInput}
+      />
       <LineBreak />
 
-      {/* Submit/Cancel nuttons */}
+      {/* Submit/Cancel buttons */}
       <Button onClick={handleSubmit} type="submit">
         Add Workout
       </Button>
@@ -64,8 +48,8 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 }
 
 type WorkoutFormInputsProps = {
-  inputs: { name:string; placeholder: string }[]
-}
+  inputs: { name: string; placeholder: string }[];
+};
 
 function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
   return (
@@ -74,11 +58,11 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
         const isExercise = index >= 2;
         const exerciseCount = inputs.length - 2;
         const number = index - 1;
-      
+
         if (!isExercise) {
           return <Input key={index} name={name} placeholder={placeholder} />;
         }
-      
+
         return (
           <div key={index} className="flex space-x-1">
             <Input
@@ -93,7 +77,7 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
               placeholder={placeholder}
               className="flex-grow"
             />
-      
+
             <Input
               name="Minutes"
               placeholder="eg. 10"
@@ -105,8 +89,41 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
               className="w-20 sm:w-10 shrink-0"
             />
           </div>
-      );
-    })}
+        );
+      })}
     </>
-  )
+  );
+}
+
+type ExerciseInputButtonsProps = {
+  inputs: { name: string; placeholder: string }[];
+  addInput: (name: string, placeholder: string) => void;
+  removeInput: () => void;
+};
+
+function ExerciseInputButtons({
+  inputs,
+  addInput,
+  removeInput,
+}: ExerciseInputButtonsProps) {
+  return (
+    <div className="flex flex-col sm:flex-row space-x-2">
+      <Button
+        onClick={() => addInput("Exercise", "Enter an exercise...")}
+        style="secondary"
+        className="text-sm h-8 my-2 w-40"
+      >
+        + Add exercise
+      </Button>
+      {inputs.length > inputMinimum && (
+        <Button
+          onClick={() => removeInput()}
+          style="secondary"
+          className="text-sm h-8 my-2 w-40"
+        >
+          - Remove exercise
+        </Button>
+      )}
+    </div>
+  );
 }
