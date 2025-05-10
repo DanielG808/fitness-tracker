@@ -35,14 +35,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         removeInput={removeInput}
       />
       <LineBreak />
-
-      {/* Submit/Cancel buttons */}
-      <Button onClick={handleSubmit} type="submit">
-        Add Workout
-      </Button>
-      <Button onClick={closeModal} style="secondary">
-        Cancel
-      </Button>
+      <FormButtons closeModal={closeModal} handleSubmit={handleSubmit} />
     </Form>
   );
 }
@@ -125,5 +118,23 @@ function ExerciseInputButtons({
         </Button>
       )}
     </div>
+  );
+}
+
+type FormButtonsProps = {
+  closeModal: () => void;
+  handleSubmit: () => void;
+};
+
+function FormButtons({ closeModal, handleSubmit }: FormButtonsProps) {
+  return (
+    <>
+      <Button onClick={handleSubmit} type="submit">
+        Add Workout
+      </Button>
+      <Button onClick={closeModal} style="secondary">
+        Cancel
+      </Button>
+    </>
   );
 }
