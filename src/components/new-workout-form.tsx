@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
@@ -29,7 +30,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   return (
     <Form>
       <WorkoutFormInputs inputs={inputs} />
-      
+
       {/* Add/Remove exercise input buttons */}
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
@@ -64,21 +65,33 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 }
 
 type WorkoutFormInputsProps = {
-  inputs: { name:string; placeholder: string }[]
-}
+  inputs: { name: string; placeholder: string }[];
+};
 
 function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
+  const [showReps, setShowReps] = useState<boolean[]>(() =>
+    inputs.map((_, index) => false)
+  );
+
+  const handleShowReps = (index: number) => {
+    setShowReps((prev) => {
+      const updated = [...prev];
+      updated[index] = true;
+      return updated;
+    });
+  };
+
   return (
     <>
       {inputs.map(({ name, placeholder }, index) => {
         const isExercise = index >= 2;
         const exerciseCount = inputs.length - 2;
         const number = index - 1;
-      
+
         if (!isExercise) {
           return <Input key={index} name={name} placeholder={placeholder} />;
         }
-      
+
         return (
           <div key={index} className="flex space-x-1">
             <Input
@@ -93,20 +106,24 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
               placeholder={placeholder}
               className="flex-grow"
             />
-      
+
             <Input
               name="Minutes"
               placeholder="eg. 10"
               className="w-20 sm:w-10 shrink-0"
             />
-            <Input
-              name="Reps"
-              placeholder="eg. 10"
-              className="w-20 sm:w-10 shrink-0"
-            />
+            {showReps[index] ? (
+              <Input
+                name="Reps"
+                placeholder="eg. 10"
+                className="w-20 sm:w-10 shrink-0"
+              />
+            ) : (
+              <Button onClick={() => handleShowReps(index)}>+ Add Reps</Button>
+            )}
           </div>
-      );
-    })}
+        );
+      })}
     </>
-  )
+  );
 }
