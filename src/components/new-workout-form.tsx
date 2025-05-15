@@ -30,35 +30,11 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   return (
     <Form>
       <WorkoutFormInputs inputs={inputs} />
-<<<<<<< HEAD
       <ExerciseInputButtons
         inputs={inputs}
         addInput={addInput}
         removeInput={removeInput}
       />
-=======
-
-      {/* Add/Remove exercise input buttons */}
-      <div className="flex flex-col sm:flex-row space-x-2">
-        <Button
-          onClick={() => addInput("Exercise", "Enter an exercise...")}
-          style="secondary"
-          className="text-sm h-8 my-2 w-40"
-        >
-          + Add exercise
-        </Button>
-        {inputs.length > inputMinimum && (
-          <Button
-            onClick={() => removeInput()}
-            style="secondary"
-            className="text-sm h-8 my-2 w-40"
-          >
-            - Remove exercise
-          </Button>
-        )}
-      </div>
-
->>>>>>> b22992c5da36760ab942dbc5b4266571c9a24ef6
       <LineBreak />
       <FormButtons closeModal={closeModal} handleSubmit={handleSubmit} />
     </Form>
@@ -70,18 +46,6 @@ type WorkoutFormInputsProps = {
 };
 
 function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
-  const [showReps, setShowReps] = useState<boolean[]>(() =>
-    inputs.map((_, index) => false)
-  );
-
-  const handleShowReps = (index: number) => {
-    setShowReps((prev) => {
-      const updated = [...prev];
-      updated[index] = true;
-      return updated;
-    });
-  };
-
   return (
     <>
       {inputs.map(({ name, placeholder }, index) => {
@@ -113,21 +77,16 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
               placeholder="eg. 10"
               className="w-20 sm:w-10 shrink-0"
             />
-            {showReps[index] ? (
-              <Input
-                name="Reps"
-                placeholder="eg. 10"
-                className="w-20 sm:w-10 shrink-0"
-              />
-            ) : (
-              <Button onClick={() => handleShowReps(index)}>+ Add Reps</Button>
-            )}
+            <Input
+              name="Reps"
+              placeholder="eg. 10"
+              className="w-20 sm:w-10 shrink-0"
+            />
           </div>
         );
       })}
     </>
   );
-<<<<<<< HEAD
 }
 
 type ExerciseInputButtonsProps = {
@@ -179,6 +138,4 @@ function FormButtons({ closeModal, handleSubmit }: FormButtonsProps) {
       </Button>
     </>
   );
-=======
->>>>>>> b22992c5da36760ab942dbc5b4266571c9a24ef6
 }
