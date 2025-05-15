@@ -78,7 +78,7 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
               className="w-20 sm:w-10 shrink-0"
             />
             <Input
-              name="Reps"
+              name="Reps (optional)"
               placeholder="eg. 10"
               className="w-20 sm:w-10 shrink-0"
             />
