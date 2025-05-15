@@ -127,7 +127,6 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
       })}
     </>
   );
-<<<<<<< HEAD
 }
 
 type ExerciseInputButtonsProps = {
@@ -179,6 +178,4 @@ function FormButtons({ closeModal, handleSubmit }: FormButtonsProps) {
       </Button>
     </>
   );
-=======
->>>>>>> b22992c5da36760ab942dbc5b4266571c9a24ef6
 }
