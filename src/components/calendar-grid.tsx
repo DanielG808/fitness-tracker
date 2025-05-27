@@ -20,7 +20,7 @@ export default function CalendarGrid() {
   return (
     <section>
       <h2 className="text-xl font-bold text-center">
-        {format(currentMonth, "MMM yyyy")}
+        {format(currentMonth, "MMMM yyyy")}
       </h2>
 
       <div className="grid grid-cols-7 text-center font-medium text-gray-500">
