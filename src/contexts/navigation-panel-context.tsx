@@ -16,7 +16,7 @@ export default function NavigationPanelContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <NavigationPanelContext.Provider value={{ open, setOpen }}>
