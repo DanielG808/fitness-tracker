@@ -7,6 +7,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import React from "react";
+import DayCell from "./day-cell";
 
 export default function CalendarGrid() {
   const now = new Date();
@@ -30,7 +31,7 @@ export default function CalendarGrid() {
 
       <div className="grid grid-cols-7 gap-2 mt-2">
         {days.map((day) => (
-          <div key={day.toISOString()}>{day.toISOString()}</div>
+          <DayCell day={day} />
         ))}
       </div>
     </section>
