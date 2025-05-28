@@ -1,16 +1,11 @@
 import { NextResponse } from "next/server";
-import { createWorkout, getAllWorkouts, getWorkout } from "./controller";
+import { createWorkout, getAllWorkouts } from "./controller";
 import { workoutCreateSchema } from "@/lib/validations/workoutSchema";
 
-export async function GET(id?: string) {
+export async function GET() {
   try {
-    if (id) {
-      const workout = await getWorkout(id);
-      return NextResponse.json(workout);
-    } else {
-      const workouts = await getAllWorkouts();
-      return NextResponse.json(workouts);
-    }
+    const workouts = await getAllWorkouts();
+    return NextResponse.json(workouts);
   } catch (error) {
     console.error("GET /api/workouts error:", error);
     return new NextResponse("Internal Server Error", { status: 500 });
