@@ -16,5 +16,6 @@ export async function GET(
     return NextResponse.json(workout);
   } catch (error) {
     console.error("GET /api/workouts/[id] error:", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
