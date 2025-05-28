@@ -14,6 +14,8 @@ export const exerciseSchema = z.object({
     .optional(),
 });
 
+export const exerciseCreateSchema = exerciseSchema.omit({ id: true });
+
 export const workoutSchema = z.object({
   title: z.string().min(1, "Title is required."),
   duration: z.number().int().positive("Duration must be a positive number."),
@@ -23,6 +25,12 @@ export const workoutSchema = z.object({
     .max(10),
 });
 
-export type Workout = z.infer<typeof workoutSchema>;
+export const workoutCreateSchema = workoutSchema.extend({
+  exerciseList: z.array(exerciseCreateSchema).min(1).max(10),
+});
 
+export type Workout = z.infer<typeof workoutSchema>;
 export type Exercise = z.infer<typeof exerciseSchema>;
+
+export type WorkoutCreate = z.infer<typeof workoutCreateSchema>;
+export type ExerciseCreate = z.infer<typeof exerciseCreateSchema>;
