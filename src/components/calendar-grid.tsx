@@ -8,7 +8,6 @@ import {
 } from "date-fns";
 import React from "react";
 import DayCell from "./day-cell";
-import { cn } from "@/lib/utils/cn";
 
 export default function CalendarGrid() {
   const now = new Date();
@@ -25,7 +24,7 @@ export default function CalendarGrid() {
       </h2>
 
       <div className="grid grid-cols-7 border border-t-0 border-black/15 text-center font-medium text-gray-500 my-1">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
+        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
           <div key={day}>{day}</div>
         ))}
       </div>
