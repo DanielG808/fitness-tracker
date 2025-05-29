@@ -11,6 +11,7 @@ export const exerciseSchema = z.object({
     .number()
     .int()
     .positive("Rep count must be a positive number.")
+    .nullable()
     .optional(),
 });
 
