@@ -3,10 +3,11 @@ import { getWorkout } from "./controller";
 
 export async function GET(
   req: Request,
-  { params }: { params: Record<string, string> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const id = params.id;
+    const { slug } = await params;
+    const id = slug;
     const workout = await getWorkout(id);
 
     if (!workout) {
