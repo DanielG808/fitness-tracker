@@ -6,3 +6,9 @@ export async function getWorkout(id: string) {
     include: { exerciseList: true },
   });
 }
+
+export async function deleteWorkout(id: string) {
+  return prisma.workout.delete({
+    where: { id },
+  });
+}
