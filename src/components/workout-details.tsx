@@ -17,7 +17,7 @@ export default function WorkoutDetails({
       <ul className="flex space-x-1 text-black/75">
         {exerciseList.map((exercise, index) => (
           <li key={index} className="hidden md:block">
-            {exercise}
+            {exercise.name}
             {index < exerciseList.length - 1 && ","}
           </li>
         ))}
