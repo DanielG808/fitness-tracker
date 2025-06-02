@@ -3,6 +3,7 @@
 import { Workout } from "@/lib/validations/workoutSchema";
 import WorkoutDetails from "./workout-details";
 import XButton from "./x-button";
+import { useRouter } from "next/navigation";
 
 type WorkoutCardProps = {
   workout: Workout;
@@ -10,9 +11,9 @@ type WorkoutCardProps = {
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
   const { id, title, duration, exerciseList } = workout;
+  const router = useRouter();
 
   async function handleDelete() {
-    console.log(id);
     try {
       const response = await fetch(`/api/workouts/${id}`, {
         method: "DELETE",
@@ -26,6 +27,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
       }
 
       console.log(response);
+      router.refresh();
     } catch (error) {
       console.error("Failed to delete workout:", error);
     }
