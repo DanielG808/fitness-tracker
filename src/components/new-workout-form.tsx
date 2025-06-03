@@ -100,23 +100,29 @@ function ExerciseInputButtons({
   removeInput,
 }: ExerciseInputButtonsProps) {
   return (
-    <div className="flex flex-col sm:flex-row space-x-2">
-      <Button
-        onClick={() => addInput("Exercise", "Enter an exercise...")}
-        variant="secondary"
-        className="text-sm h-8 my-2 w-40"
-      >
-        + Add exercise
-      </Button>
-      {inputs.length > inputMinimum && (
+    <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() => removeInput()}
+          onClick={() => addInput("Exercise", "Enter an exercise...")}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
         >
-          - Remove exercise
+          + Add exercise
         </Button>
-      )}
+        {inputs.length > inputMinimum && (
+          <Button
+            onClick={() => removeInput()}
+            variant="secondary"
+            className="text-sm h-8 my-2 w-40"
+          >
+            - Remove exercise
+          </Button>
+        )}
+      </div>
+      <p className="text-md font-semibold text-gray-700">
+        Total Duration:{" "}
+        <span className="font-normal text-black/75">{"--"} minutes</span>
+      </p>
     </div>
   );
 }
