@@ -5,6 +5,7 @@ import NavigationPanel from "@/components/navigation-panel";
 import NavigationPanelContextProvider from "@/contexts/navigation-panel-context";
 import PageContentContainer from "@/components/page-content-container";
 import Header from "@/components/header";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Fitness Tracker",
@@ -25,6 +26,7 @@ export default function RootLayout({
             <Header />
             {children}
           </PageContentContainer>
+          <Toaster />
         </NavigationPanelContextProvider>
       </body>
     </html>
