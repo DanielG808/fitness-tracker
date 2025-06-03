@@ -1,3 +1,5 @@
+"use client";
+
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import Button from "./ui/button";
 
