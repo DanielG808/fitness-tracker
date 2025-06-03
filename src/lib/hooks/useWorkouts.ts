@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
+import { toast } from "sonner";
 
 export function useWorkouts() {
   const router = useRouter();
@@ -20,9 +21,11 @@ export function useWorkouts() {
 
         console.log(response);
         router.refresh();
+        toast.success("Workout has been deleted!");
         return true;
       } catch (error) {
         console.error("Failed to delete workout:", error);
+        toast.warning("Workout was not successfully deleted.");
         return false;
       }
     },
