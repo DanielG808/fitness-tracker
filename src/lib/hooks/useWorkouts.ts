@@ -19,7 +19,6 @@ export function useWorkouts() {
           throw new Error(`Error: ${response.statusText}`);
         }
 
-        console.log(response);
         router.refresh();
         toast.success("Workout has been deleted!");
         return true;

@@ -9,10 +9,6 @@ export const workoutFormInputs: InputField[] = [
     placeholder: "Enter your workout title...",
   },
   {
-    name: "Total Time",
-    placeholder: "Enter your workout length...",
-  },
-  {
     name: "Exercise",
     placeholder: "Enter an exercise...",
   },
