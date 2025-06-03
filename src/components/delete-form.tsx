@@ -1,6 +1,6 @@
 import Button from "./ui/button";
 
-export default function DeleteForm({ id, title }) {
+export default function DeleteForm({ id, title, closeModal }) {
   return (
     <section className="flex flex-col justify-center items-center w-full">
       <h2 className="text-lg text-center">
@@ -11,7 +11,7 @@ export default function DeleteForm({ id, title }) {
         <Button variant="warning" className="w-1/5">
           Delete
         </Button>
-        <Button variant="secondary" className="w-1/5">
+        <Button onClick={closeModal} variant="secondary" className="w-1/5">
           Cancel
         </Button>
       </div>

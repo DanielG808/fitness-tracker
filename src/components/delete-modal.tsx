@@ -12,7 +12,7 @@ export default function DeleteModal({ id, title }) {
 
       {open && (
         <Modal open={open} closeModal={closeModal} heading="Delete Workout">
-          <DeleteForm id={id} title={title} />
+          <DeleteForm id={id} title={title} closeModal={closeModal} />
         </Modal>
       )}
     </>
