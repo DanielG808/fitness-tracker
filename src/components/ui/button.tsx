@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils/cn";
 
-type ButtonVariant = "primary" | "secondary";
+type ButtonVariant = "primary" | "secondary" | "warning";
 
 type ButtonProps = {
   type?: "button" | "submit" | "reset";
-  style?: ButtonVariant;
+  variant?: ButtonVariant;
   children: React.ReactNode;
   onClick: () => void;
   className?: string;
@@ -17,11 +17,12 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-primary text-background hover:text-white hover:bg-primary-dark",
   secondary:
     "bg-background-light/65 text-black/75 hover:bg-background-light hover:text-black/75",
+  warning: "bg-red-600 text-background hover:text-white hover:bg-red-800",
 };
 
 export default function Button({
   type = "button",
-  style = "primary",
+  variant = "primary",
   children,
   onClick,
   className,
@@ -30,7 +31,7 @@ export default function Button({
     <button
       type={type}
       onClick={onClick}
-      className={cn(baseStyles, variantStyles[style], className)}
+      className={cn(baseStyles, variantStyles[variant], className)}
     >
       {children}
     </button>

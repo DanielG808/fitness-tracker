@@ -30,13 +30,13 @@ export default function Modal({
 
     return () => {
       document.body.style.overflow = "";
-    } 
-  }, [open])
+    };
+  }, [open]);
 
   if (!mounted || !open || !containerRect) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 bg-black/50">
+    <div className="fixed inset-0 z-50 bg-black/50 text-black">
       <div
         className="flex items-center justify-center absolute inset-0"
         style={{
