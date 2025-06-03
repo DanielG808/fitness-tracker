@@ -48,9 +48,9 @@ function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
   return (
     <>
       {inputs.map(({ name, placeholder }, index) => {
-        const isExercise = index >= 2;
-        const exerciseCount = inputs.length - 2;
-        const number = index - 1;
+        const isExercise = index >= 1;
+        const exerciseCount = inputs.length - 1;
+        const number = index - 1 + 1;
 
         if (!isExercise) {
           return <Input key={index} name={name} placeholder={placeholder} />;
