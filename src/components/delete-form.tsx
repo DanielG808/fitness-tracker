@@ -1,7 +1,13 @@
 import { useWorkouts } from "@/lib/hooks/useWorkouts";
 import Button from "./ui/button";
 
-export default function DeleteForm({ id, title, closeModal }) {
+type DeleteFormProps = {
+  id: string;
+  title: string;
+  closeModal: () => void;
+};
+
+export default function DeleteForm({ id, title, closeModal }: DeleteFormProps) {
   const { deleteWorkout } = useWorkouts();
 
   async function handleDelete(id: string) {

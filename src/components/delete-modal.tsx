@@ -3,7 +3,12 @@ import Modal from "./ui/modal";
 import XButton from "./x-button";
 import DeleteForm from "./delete-form";
 
-export default function DeleteModal({ id, title }) {
+type DeleteModalProps = {
+  id: string;
+  title: string;
+};
+
+export default function DeleteModal({ id, title }: DeleteModalProps) {
   const { open, openModal, closeModal } = useModal();
 
   return (
