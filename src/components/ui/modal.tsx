@@ -49,9 +49,9 @@ export default function Modal({
           justifyContent: "center",
         }}
       >
-        <section className="bg-white w-full max-w-2xl max-h-[90vh] h-screen sm:h-auto  p-6 rounded-2xl relative space-y-2 overflow-y-auto">
+        <section className="bg-white w-full max-w-2xl max-h-[90vh] h-screen sm:h-auto p-6 rounded-2xl relative space-y-2 overflow-y-auto">
           <div className="flex w-full justify-between items-start">
-            <H2 className="text-black text-xl mb-4">{heading}</H2>
+            <H2 className="text-black text-xl mb-2">{heading}</H2>
             <XButton onClick={closeModal} />
           </div>
           {children}
