@@ -103,7 +103,7 @@ function ExerciseInputButtons({
     <div className="flex flex-col sm:flex-row space-x-2">
       <Button
         onClick={() => addInput("Exercise", "Enter an exercise...")}
-        style="secondary"
+        variant="secondary"
         className="text-sm h-8 my-2 w-40"
       >
         + Add exercise
@@ -111,7 +111,7 @@ function ExerciseInputButtons({
       {inputs.length > inputMinimum && (
         <Button
           onClick={() => removeInput()}
-          style="secondary"
+          variant="secondary"
           className="text-sm h-8 my-2 w-40"
         >
           - Remove exercise
@@ -132,7 +132,7 @@ function FormButtons({ closeModal, handleSubmit }: FormButtonsProps) {
       <Button onClick={handleSubmit} type="submit">
         Add Workout
       </Button>
-      <Button onClick={closeModal} style="secondary">
+      <Button onClick={closeModal} variant="secondary">
         Cancel
       </Button>
     </>

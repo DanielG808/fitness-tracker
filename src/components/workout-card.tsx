@@ -2,9 +2,7 @@
 
 import { Workout } from "@/lib/validations/workoutSchema";
 import WorkoutDetails from "./workout-details";
-import XButton from "./x-button";
-import { useRouter } from "next/navigation";
-import { useWorkouts } from "@/lib/hooks/useWorkouts";
+import DeleteModal from "./delete-modal";
 
 type WorkoutCardProps = {
   workout: Workout;
@@ -12,7 +10,6 @@ type WorkoutCardProps = {
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
   const { id, title, duration, exerciseList } = workout;
-  const { deleteWorkout } = useWorkouts();
 
   return (
     <li className="bg-white w-full md:w-2/3 h-28 p-4 rounded-lg shadow-md hover:shadow-xl duration-300">
@@ -23,7 +20,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
           duration={duration}
           exerciseList={exerciseList}
         />
-        <XButton onClick={() => deleteWorkout(id)} />
+        <DeleteModal id={id} title={title} />
       </article>
     </li>
   );
