@@ -4,6 +4,7 @@ type ButtonVariant = "primary" | "secondary" | "warning";
 
 type ButtonProps = {
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
   variant?: ButtonVariant;
   children: React.ReactNode;
   onClick?: () => void;
@@ -22,6 +23,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 
 export default function Button({
   type = "button",
+  disabled = false,
   variant = "primary",
   children,
   onClick,
@@ -30,6 +32,7 @@ export default function Button({
   return (
     <button
       type={type}
+      disabled={disabled}
       onClick={onClick}
       className={cn(baseStyles, variantStyles[variant], className)}
     >

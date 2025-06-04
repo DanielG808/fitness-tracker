@@ -34,7 +34,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     defaultValues: {
       title: "",
       duration: 0,
-      exerciseList: [{ name: "", minutes: 0, reps: null }],
+      exerciseList: [{ name: "", minutes: undefined, reps: undefined }],
     },
   });
 
