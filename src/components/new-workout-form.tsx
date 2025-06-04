@@ -154,8 +154,8 @@ function WorkoutFormInputs({
 type ExerciseInputButtonsProps = {
   append: (value: {
     name: string;
-    minutes: number;
-    reps: number | null;
+    minutes: number | undefined;
+    reps: number | null | undefined;
   }) => void;
   remove: (index: number) => void;
   fieldsLength: number;
@@ -172,7 +172,9 @@ function ExerciseInputButtons({
     <div className="flex justify-between items-center">
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() => append({ name: "", minutes: 0, reps: null })}
+          onClick={() =>
+            append({ name: "", minutes: undefined, reps: undefined })
+          }
           disabled={fieldsLength >= 10}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
