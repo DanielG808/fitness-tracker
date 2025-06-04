@@ -17,6 +17,7 @@ import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
 import LineBreak from "./ui/line-break";
+import { TrashIcon } from "@heroicons/react/16/solid";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -105,7 +106,10 @@ function WorkoutFormInputs({
           : "Exercise:";
 
         return (
-          <div key={index} className="flex space-x-1">
+          <div
+            key={field.id}
+            className="flex flex-wrap sm:flex-nowrap sm:items-end space-y-2 sm:space-y-0 sm:space-x-2"
+          >
             <Input
               {...register(`exerciseList.${index}.name`)}
               label={exerciseLabel}
@@ -131,6 +135,15 @@ function WorkoutFormInputs({
               placeholder="eg. 10"
               className="w-20 sm:w-10 shrink-0"
             />
+
+            {isMultiple && (
+              <Button
+                onClick={() => remove(index)}
+                className="self-end bg-white mb-3 p-0 w-auto text-background-light hover:text-background-dark hover:bg-white"
+              >
+                <TrashIcon className="h-5 w-5" />
+              </Button>
+            )}
           </div>
         );
       })}
