@@ -179,15 +179,6 @@ function ExerciseInputButtons({
         >
           + Add exercise
         </Button>
-        {fieldsLength > 1 && (
-          <Button
-            onClick={() => remove(fieldsLength - 1)}
-            variant="secondary"
-            className="text-sm h-8 my-2 w-40"
-          >
-            - Remove exercise
-          </Button>
-        )}
       </div>
       <p className="text-md font-semibold text-gray-700">
         Total Duration:{" "}
