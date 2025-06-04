@@ -91,31 +91,47 @@ function WorkoutFormInputs({
 }: WorkoutFormInputsProps) {
   return (
     <>
-      <Input {...register("title")} placeholder="Enter workout here..." />
-      {fields.map((field, index) => (
-        <div key={index} className="flex space-x-1">
-          <Input
-            {...register(`exerciseList.${index}.name`)}
-            placeholder="Enter exercise here..."
-            className="flex-grow"
-          />
+      <Input
+        {...register("title")}
+        label="Title:"
+        placeholder="Enter workout here..."
+      />
+      {fields.map((field, index) => {
+        const isMultiple = fields.length > 1;
+        const exerciseLabel = isMultiple
+          ? `Exercise #${index + 1}:`
+          : "Exercise:";
 
-          <Input
-            type="number"
-            {...register(`exerciseList.${index}.minutes`, {
-              valueAsNumber: true,
-            })}
-            placeholder="eg. 10"
-            className="w-20 sm:w-10 shrink-0"
-          />
-          <Input
-            type="number"
-            {...register(`exerciseList.${index}.reps`, { valueAsNumber: true })}
-            placeholder="eg. 10"
-            className="w-20 sm:w-10 shrink-0"
-          />
-        </div>
-      ))}
+        return (
+          <div key={index} className="flex space-x-1">
+            <Input
+              {...register(`exerciseList.${index}.name`)}
+              label={exerciseLabel}
+              placeholder="Enter exercise here..."
+              className="flex-grow"
+            />
+
+            <Input
+              type="number"
+              {...register(`exerciseList.${index}.minutes`, {
+                valueAsNumber: true,
+              })}
+              label="Minutes:"
+              placeholder="eg. 10"
+              className="w-20 sm:w-10 shrink-0"
+            />
+            <Input
+              type="number"
+              {...register(`exerciseList.${index}.reps`, {
+                valueAsNumber: true,
+              })}
+              label="Reps (optional):"
+              placeholder="eg. 10"
+              className="w-20 sm:w-10 shrink-0"
+            />
+          </div>
+        );
+      })}
     </>
   );
 }
