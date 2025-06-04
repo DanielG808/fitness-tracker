@@ -16,12 +16,6 @@ import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
 import LineBreak from "./ui/line-break";
-import {
-  inputMinimum,
-  inputMaximum,
-  workoutFormInputs,
-} from "@/lib/constants/workoutFormInputs";
-import { useInputList } from "@/lib/hooks/useInputList";
 import { useEffect } from "react";
 
 type NewWorkoutFormProps = {
@@ -29,12 +23,6 @@ type NewWorkoutFormProps = {
 };
 
 export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
-  const { inputs, addInput, removeInput } = useInputList(
-    workoutFormInputs,
-    inputMinimum,
-    inputMaximum
-  );
-
   const {
     register,
     control,
@@ -78,15 +66,12 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         remove={remove}
       />
       <ExerciseInputButtons
-        inputs={inputs}
-        addInput={addInput}
-        removeInput={removeInput}
+        append={append}
+        remove={remove}
+        fieldsLength={fields.length}
       />
       <LineBreak />
-      <FormButtons
-        closeModal={closeModal}
-        handleSubmit={handleSubmit(onSubmit)}
-      />
+      <FormButtons closeModal={closeModal} />
     </Form>
   );
 }
@@ -117,17 +102,15 @@ function WorkoutFormInputs({
 
           <Input
             type="number"
-            name="Minutes"
-            {...(register(`exerciseList.${index}.minutes`),
-            { valueAsNumber: true })}
+            {...register(`exerciseList.${index}.minutes`, {
+              valueAsNumber: true,
+            })}
             placeholder="eg. 10"
             className="w-20 sm:w-10 shrink-0"
           />
           <Input
             type="number"
-            name="Reps (optional)"
-            {...(register(`exerciseList.${index}.reps`),
-            { valueAsNumber: true })}
+            {...register(`exerciseList.${index}.reps`, { valueAsNumber: true })}
             placeholder="eg. 10"
             className="w-20 sm:w-10 shrink-0"
           />
@@ -138,29 +121,33 @@ function WorkoutFormInputs({
 }
 
 type ExerciseInputButtonsProps = {
-  inputs: { name: string; placeholder: string }[];
-  addInput: (name: string, placeholder: string) => void;
-  removeInput: () => void;
+  append: (value: {
+    name: string;
+    minutes: number;
+    reps: number | null;
+  }) => void;
+  remove: (index: number) => void;
+  fieldsLength: number;
 };
 
 function ExerciseInputButtons({
-  inputs,
-  addInput,
-  removeInput,
+  append,
+  remove,
+  fieldsLength,
 }: ExerciseInputButtonsProps) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() => addInput("Exercise", "Enter an exercise...")}
+          onClick={() => append({ name: "", minutes: 0, reps: null })}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
         >
           + Add exercise
         </Button>
-        {inputs.length > inputMinimum && (
+        {fieldsLength > 1 && (
           <Button
-            onClick={() => removeInput()}
+            onClick={() => remove(fieldsLength - 1)}
             variant="secondary"
             className="text-sm h-8 my-2 w-40"
           >
@@ -178,15 +165,12 @@ function ExerciseInputButtons({
 
 type FormButtonsProps = {
   closeModal: () => void;
-  handleSubmit: () => void;
 };
 
-function FormButtons({ closeModal, handleSubmit }: FormButtonsProps) {
+function FormButtons({ closeModal }: FormButtonsProps) {
   return (
     <>
-      <Button onClick={handleSubmit} type="submit">
-        Add Workout
-      </Button>
+      <Button type="submit">Add Workout</Button>
       <Button onClick={closeModal} variant="secondary">
         Cancel
       </Button>
