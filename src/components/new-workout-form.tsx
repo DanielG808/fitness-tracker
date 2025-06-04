@@ -17,6 +17,7 @@ import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
 import LineBreak from "./ui/line-break";
+import { TrashIcon } from "@heroicons/react/16/solid";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -34,7 +35,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     defaultValues: {
       title: "",
       duration: 0,
-      exerciseList: [{ name: "", minutes: 0, reps: null }],
+      exerciseList: [{ name: "", minutes: undefined, reps: undefined }],
     },
   });
 
@@ -105,7 +106,10 @@ function WorkoutFormInputs({
           : "Exercise:";
 
         return (
-          <div key={index} className="flex space-x-1">
+          <div
+            key={field.id}
+            className="flex flex-wrap sm:flex-nowrap sm:items-end space-y-2 sm:space-y-0 sm:space-x-2"
+          >
             <Input
               {...register(`exerciseList.${index}.name`)}
               label={exerciseLabel}
@@ -131,6 +135,15 @@ function WorkoutFormInputs({
               placeholder="eg. 10"
               className="w-20 sm:w-10 shrink-0"
             />
+
+            {isMultiple && (
+              <Button
+                onClick={() => remove(index)}
+                className="self-end bg-white mb-3 p-0 w-auto text-background-light hover:text-background-dark hover:bg-white"
+              >
+                <TrashIcon className="h-5 w-5" />
+              </Button>
+            )}
           </div>
         );
       })}
@@ -141,8 +154,8 @@ function WorkoutFormInputs({
 type ExerciseInputButtonsProps = {
   append: (value: {
     name: string;
-    minutes: number;
-    reps: number | null;
+    minutes: number | undefined;
+    reps: number | null | undefined;
   }) => void;
   remove: (index: number) => void;
   fieldsLength: number;
@@ -159,21 +172,15 @@ function ExerciseInputButtons({
     <div className="flex justify-between items-center">
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() => append({ name: "", minutes: 0, reps: null })}
+          onClick={() =>
+            append({ name: "", minutes: undefined, reps: undefined })
+          }
+          disabled={fieldsLength >= 10}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
         >
           + Add exercise
         </Button>
-        {fieldsLength > 1 && (
-          <Button
-            onClick={() => remove(fieldsLength - 1)}
-            variant="secondary"
-            className="text-sm h-8 my-2 w-40"
-          >
-            - Remove exercise
-          </Button>
-        )}
       </div>
       <p className="text-md font-semibold text-gray-700">
         Total Duration:{" "}
