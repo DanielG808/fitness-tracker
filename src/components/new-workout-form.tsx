@@ -1,5 +1,17 @@
 "use client";
 
+import {
+  FieldErrors,
+  useFieldArray,
+  useForm,
+  UseFormRegister,
+  useWatch,
+} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  WorkoutCreate,
+  workoutCreateSchema,
+} from "@/lib/validations/workoutSchema";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
@@ -10,6 +22,7 @@ import {
   workoutFormInputs,
 } from "@/lib/constants/workoutFormInputs";
 import { useInputList } from "@/lib/hooks/useInputList";
+import { useEffect } from "react";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -22,68 +35,104 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     inputMaximum
   );
 
-  function handleSubmit() {
-    console.log("Submitting!");
+  const {
+    register,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<WorkoutCreate>({
+    resolver: zodResolver(workoutCreateSchema),
+    defaultValues: {
+      title: "",
+      duration: 0,
+      exerciseList: [{ name: "", minutes: 0, reps: null }],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "exerciseList",
+  });
+
+  const exerciseList = useWatch({ control, name: "exerciseList" });
+
+  useEffect(() => {
+    const total = exerciseList?.reduce(
+      (sum, ex) => sum + (Number(ex.minutes) || 0),
+      0
+    );
+    setValue("duration", total);
+  }, [exerciseList, setValue]);
+
+  function onSubmit(data: WorkoutCreate) {
+    console.log("Workout data submitted:", data);
   }
 
   return (
-    <Form>
-      <WorkoutFormInputs inputs={inputs} />
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <WorkoutFormInputs
+        register={register}
+        fields={fields}
+        errors={errors}
+        remove={remove}
+      />
       <ExerciseInputButtons
         inputs={inputs}
         addInput={addInput}
         removeInput={removeInput}
       />
       <LineBreak />
-      <FormButtons closeModal={closeModal} handleSubmit={handleSubmit} />
+      <FormButtons
+        closeModal={closeModal}
+        handleSubmit={handleSubmit(onSubmit)}
+      />
     </Form>
   );
 }
 
 type WorkoutFormInputsProps = {
-  inputs: { name: string; placeholder: string }[];
+  register: UseFormRegister<WorkoutCreate>;
+  fields: { id: string }[];
+  errors: FieldErrors<WorkoutCreate>;
+  remove: (index: number) => void;
 };
 
-function WorkoutFormInputs({ inputs }: WorkoutFormInputsProps) {
+function WorkoutFormInputs({
+  register,
+  fields,
+  errors,
+  remove,
+}: WorkoutFormInputsProps) {
   return (
     <>
-      {inputs.map(({ name, placeholder }, index) => {
-        const isExercise = index >= 1;
-        const exerciseCount = inputs.length - 1;
-        const number = index - 1 + 1;
+      <Input {...register("title")} placeholder="Enter workout here..." />
+      {fields.map((field, index) => (
+        <div key={index} className="flex space-x-1">
+          <Input
+            {...register(`exerciseList.${index}.name`)}
+            placeholder="Enter exercise here..."
+            className="flex-grow"
+          />
 
-        if (!isExercise) {
-          return <Input key={index} name={name} placeholder={placeholder} />;
-        }
-
-        return (
-          <div key={index} className="flex space-x-1">
-            <Input
-              key={index}
-              name={
-                isExercise
-                  ? exerciseCount > 1
-                    ? `Exercise #${number}`
-                    : "Exercise"
-                  : name
-              }
-              placeholder={placeholder}
-              className="flex-grow"
-            />
-
-            <Input
-              name="Minutes"
-              placeholder="eg. 10"
-              className="w-20 sm:w-10 shrink-0"
-            />
-            <Input
-              name="Reps (optional)"
-              placeholder="eg. 10"
-              className="w-20 sm:w-10 shrink-0"
-            />
-          </div>
-        );
-      })}
+          <Input
+            type="number"
+            name="Minutes"
+            {...(register(`exerciseList.${index}.minutes`),
+            { valueAsNumber: true })}
+            placeholder="eg. 10"
+            className="w-20 sm:w-10 shrink-0"
+          />
+          <Input
+            type="number"
+            name="Reps (optional)"
+            {...(register(`exerciseList.${index}.reps`),
+            { valueAsNumber: true })}
+            placeholder="eg. 10"
+            className="w-20 sm:w-10 shrink-0"
+          />
+        </div>
+      ))}
     </>
   );
 }
