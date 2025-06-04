@@ -160,6 +160,7 @@ function ExerciseInputButtons({
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
           onClick={() => append({ name: "", minutes: 0, reps: null })}
+          disabled={fieldsLength >= 10}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
         >

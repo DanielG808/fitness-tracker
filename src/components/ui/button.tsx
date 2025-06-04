@@ -21,6 +21,9 @@ const variantStyles: Record<ButtonVariant, string> = {
   warning: "bg-red-600 text-background hover:text-white hover:bg-red-800",
 };
 
+const disabledStyles =
+  "opacity-50 cursor-not-allowed hover:bg-inherit hover:text-inherit";
+
 export default function Button({
   type = "button",
   disabled = false,
@@ -34,7 +37,12 @@ export default function Button({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={cn(baseStyles, variantStyles[variant], className)}
+      className={cn(
+        baseStyles,
+        variantStyles[variant],
+        disabled && disabledStyles,
+        className
+      )}
     >
       {children}
     </button>
