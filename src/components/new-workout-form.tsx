@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import {
   FieldErrors,
   useFieldArray,
@@ -16,7 +17,6 @@ import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
 import LineBreak from "./ui/line-break";
-import { useEffect } from "react";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -44,6 +44,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   });
 
   const exerciseList = useWatch({ control, name: "exerciseList" });
+  const duration = useWatch({ control, name: "duration" });
 
   useEffect(() => {
     const total = exerciseList?.reduce(
@@ -69,6 +70,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         append={append}
         remove={remove}
         fieldsLength={fields.length}
+        duration={duration}
       />
       <LineBreak />
       <FormButtons closeModal={closeModal} />
@@ -144,12 +146,14 @@ type ExerciseInputButtonsProps = {
   }) => void;
   remove: (index: number) => void;
   fieldsLength: number;
+  duration: number;
 };
 
 function ExerciseInputButtons({
   append,
   remove,
   fieldsLength,
+  duration,
 }: ExerciseInputButtonsProps) {
   return (
     <div className="flex justify-between items-center">
@@ -173,7 +177,9 @@ function ExerciseInputButtons({
       </div>
       <p className="text-md font-semibold text-gray-700">
         Total Duration:{" "}
-        <span className="font-normal text-black/75">{"--"} minutes</span>
+        <span className="font-normal text-black/75">
+          {duration ? duration : "--"} minutes
+        </span>
       </p>
     </div>
   );
