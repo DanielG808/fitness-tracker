@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import {
   FieldErrors,
   useFieldArray,
+  UseFieldArrayAppend,
   useForm,
   UseFormRegister,
   useWatch,
@@ -35,7 +36,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     defaultValues: {
       title: "",
       duration: 0,
-      exerciseList: [{ name: "", minutes: undefined, reps: undefined }],
+      exerciseList: [{ name: "", minutes: 0, reps: undefined }],
     },
   });
 
@@ -69,7 +70,6 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
       />
       <ExerciseInputButtons
         append={append}
-        remove={remove}
         fieldsLength={fields.length}
         duration={duration}
       />
@@ -89,7 +89,7 @@ type WorkoutFormInputsProps = {
 function WorkoutFormInputs({
   register,
   fields,
-  errors,
+  // errors,
   remove,
 }: WorkoutFormInputsProps) {
   return (
@@ -121,6 +121,10 @@ function WorkoutFormInputs({
               type="number"
               {...register(`exerciseList.${index}.minutes`, {
                 valueAsNumber: true,
+                setValueAs: (value) => {
+                  if (value === "" || isNaN(value)) return undefined;
+                  return Number(value);
+                },
               })}
               label="Minutes:"
               placeholder="eg. 10"
@@ -152,19 +156,13 @@ function WorkoutFormInputs({
 }
 
 type ExerciseInputButtonsProps = {
-  append: (value: {
-    name: string;
-    minutes: number | undefined;
-    reps: number | null | undefined;
-  }) => void;
-  remove: (index: number) => void;
+  append: UseFieldArrayAppend<WorkoutCreate, "exerciseList">;
   fieldsLength: number;
   duration: number;
 };
 
 function ExerciseInputButtons({
   append,
-  remove,
   fieldsLength,
   duration,
 }: ExerciseInputButtonsProps) {
@@ -172,9 +170,7 @@ function ExerciseInputButtons({
     <div className="flex justify-between items-center">
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() =>
-            append({ name: "", minutes: undefined, reps: undefined })
-          }
+          onClick={() => append({ name: "", minutes: 0, reps: undefined })}
           disabled={fieldsLength >= 10}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
