@@ -1,20 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
 import {
   FieldErrors,
-  useFieldArray,
   UseFieldArrayAppend,
-  useForm,
   UseFormRegister,
-  useWatch,
 } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  WorkoutCreate,
-  workoutCreateSchema,
-} from "@/lib/validations/workoutSchema";
+import { WorkoutCreate } from "@/lib/validations/workoutSchema";
 import { TrashIcon } from "@heroicons/react/16/solid";
+import { useWorkouts } from "@/lib/hooks/useWorkouts";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
@@ -27,61 +20,18 @@ type NewWorkoutFormProps = {
 export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   const {
     register,
-    control,
     handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<WorkoutCreate>({
-    resolver: zodResolver(workoutCreateSchema),
-    defaultValues: {
-      title: "",
-      duration: 0,
-      exerciseList: [{ name: "", minutes: 0, reps: undefined }],
-    },
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "exerciseList",
-  });
-
-  const exerciseList = useWatch({ control, name: "exerciseList" });
-  const duration = useWatch({ control, name: "duration" });
-
-  useEffect(() => {
-    const total = exerciseList?.reduce(
-      (sum, ex) => sum + (Number(ex.minutes) || 0),
-      0
-    );
-    setValue("duration", total);
-  }, [exerciseList, setValue]);
+    errors,
+    fields,
+    append,
+    remove,
+    submitWorkout,
+    duration,
+  } = useWorkouts();
 
   async function onSubmit(data: WorkoutCreate) {
-    console.log("Workout data submitted:", data);
-
-    try {
-      const validatedData = workoutCreateSchema.parse(data);
-      const response = await fetch("/api/workouts", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(validatedData),
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          `Failed to submit workout: ${response.status} ${response.statusText}`
-        );
-      }
-
-      const newWorkout = await response.json();
-
-      console.log(newWorkout);
-    } catch (error) {
-      console.error(error);
-      throw new Error(`Failed to submit workout: ${error}`);
-    }
+    const result = await submitWorkout(data);
+    if (result) closeModal();
   }
 
   return (
@@ -114,8 +64,7 @@ function WorkoutFormInputs({
   register,
   remove,
   fields,
-}: // errors,
-WorkoutFormInputsProps) {
+}: WorkoutFormInputsProps) {
   return (
     <>
       <Input
@@ -194,7 +143,13 @@ function ExerciseInputButtons({
     <div className="flex justify-between items-center">
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() => append({ name: "", minutes: 0, reps: undefined })}
+          onClick={() =>
+            append({
+              name: "",
+              minutes: undefined,
+              reps: undefined,
+            } as unknown as WorkoutCreate["exerciseList"][number])
+          }
           disabled={fieldsLength >= 10}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
