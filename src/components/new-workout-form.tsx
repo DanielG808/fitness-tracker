@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import {
   FieldErrors,
   useFieldArray,
+  UseFieldArrayAppend,
   useForm,
   UseFormRegister,
   useWatch,
@@ -13,11 +14,11 @@ import {
   WorkoutCreate,
   workoutCreateSchema,
 } from "@/lib/validations/workoutSchema";
+import { TrashIcon } from "@heroicons/react/16/solid";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
 import LineBreak from "./ui/line-break";
-import { TrashIcon } from "@heroicons/react/16/solid";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -35,7 +36,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     defaultValues: {
       title: "",
       duration: 0,
-      exerciseList: [{ name: "", minutes: undefined, reps: undefined }],
+      exerciseList: [{ name: "", minutes: 0, reps: undefined }],
     },
   });
 
@@ -55,8 +56,32 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     setValue("duration", total);
   }, [exerciseList, setValue]);
 
-  function onSubmit(data: WorkoutCreate) {
+  async function onSubmit(data: WorkoutCreate) {
     console.log("Workout data submitted:", data);
+
+    try {
+      const validatedData = workoutCreateSchema.parse(data);
+      const response = await fetch("/api/workouts", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to submit workout: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const newWorkout = await response.json();
+
+      console.log(newWorkout);
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Failed to submit workout: ${error}`);
+    }
   }
 
   return (
@@ -69,7 +94,6 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
       />
       <ExerciseInputButtons
         append={append}
-        remove={remove}
         fieldsLength={fields.length}
         duration={duration}
       />
@@ -81,17 +105,17 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 
 type WorkoutFormInputsProps = {
   register: UseFormRegister<WorkoutCreate>;
+  remove: (index: number) => void;
   fields: { id: string }[];
   errors: FieldErrors<WorkoutCreate>;
-  remove: (index: number) => void;
 };
 
 function WorkoutFormInputs({
   register,
-  fields,
-  errors,
   remove,
-}: WorkoutFormInputsProps) {
+  fields,
+}: // errors,
+WorkoutFormInputsProps) {
   return (
     <>
       <Input
@@ -121,6 +145,10 @@ function WorkoutFormInputs({
               type="number"
               {...register(`exerciseList.${index}.minutes`, {
                 valueAsNumber: true,
+                setValueAs: (value) => {
+                  if (value === "" || isNaN(value)) return undefined;
+                  return Number(value);
+                },
               })}
               label="Minutes:"
               placeholder="eg. 10"
@@ -152,19 +180,13 @@ function WorkoutFormInputs({
 }
 
 type ExerciseInputButtonsProps = {
-  append: (value: {
-    name: string;
-    minutes: number | undefined;
-    reps: number | null | undefined;
-  }) => void;
-  remove: (index: number) => void;
+  append: UseFieldArrayAppend<WorkoutCreate, "exerciseList">;
   fieldsLength: number;
   duration: number;
 };
 
 function ExerciseInputButtons({
   append,
-  remove,
   fieldsLength,
   duration,
 }: ExerciseInputButtonsProps) {
@@ -172,9 +194,7 @@ function ExerciseInputButtons({
     <div className="flex justify-between items-center">
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() =>
-            append({ name: "", minutes: undefined, reps: undefined })
-          }
+          onClick={() => append({ name: "", minutes: 0, reps: undefined })}
           disabled={fieldsLength >= 10}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
