@@ -56,8 +56,32 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     setValue("duration", total);
   }, [exerciseList, setValue]);
 
-  function onSubmit(data: WorkoutCreate) {
+  async function onSubmit(data: WorkoutCreate) {
     console.log("Workout data submitted:", data);
+
+    try {
+      const validatedData = workoutCreateSchema.parse(data);
+      const response = await fetch("/api/workouts", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to submit workout: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const newWorkout = await response.json();
+
+      console.log(newWorkout);
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Failed to submit workout: ${error}`);
+    }
   }
 
   return (
