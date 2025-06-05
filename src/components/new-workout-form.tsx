@@ -5,6 +5,7 @@ import {
   FieldErrors,
   useFieldArray,
   UseFieldArrayAppend,
+  UseFieldArrayAppend,
   useForm,
   UseFormRegister,
   useWatch,
@@ -14,11 +15,11 @@ import {
   WorkoutCreate,
   workoutCreateSchema,
 } from "@/lib/validations/workoutSchema";
+import { TrashIcon } from "@heroicons/react/16/solid";
 import Button from "./ui/button";
 import Form from "./ui/form";
 import Input from "./ui/input";
 import LineBreak from "./ui/line-break";
-import { TrashIcon } from "@heroicons/react/16/solid";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -56,8 +57,32 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     setValue("duration", total);
   }, [exerciseList, setValue]);
 
-  function onSubmit(data: WorkoutCreate) {
+  async function onSubmit(data: WorkoutCreate) {
     console.log("Workout data submitted:", data);
+
+    try {
+      const validatedData = workoutCreateSchema.parse(data);
+      const response = await fetch("/api/workouts", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to submit workout: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const newWorkout = await response.json();
+
+      console.log(newWorkout);
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Failed to submit workout: ${error}`);
+    }
   }
 
   return (
@@ -81,15 +106,16 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 
 type WorkoutFormInputsProps = {
   register: UseFormRegister<WorkoutCreate>;
+  remove: (index: number) => void;
   fields: { id: string }[];
   errors: FieldErrors<WorkoutCreate>;
-  remove: (index: number) => void;
 };
 
 function WorkoutFormInputs({
   register,
+  remove,
   fields,
-  // errors,
+  errors,
   remove,
 }: WorkoutFormInputsProps) {
   return (

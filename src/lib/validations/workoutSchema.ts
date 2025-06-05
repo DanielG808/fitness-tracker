@@ -6,11 +6,13 @@ export const exerciseSchema = z.object({
   minutes: z
     .number()
     .int()
-    .positive("Exercise time must be a positive number."),
+    .positive("Exercise time must be a positive number.")
+    .gt(0, "Duration must be longer than zero minutes."),
   reps: z
     .number()
     .int()
     .positive("Rep count must be a positive number.")
+    .gt(0, "Duration must be longer than zero minutes.")
     .nullable()
     .optional(),
 });
