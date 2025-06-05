@@ -36,7 +36,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     defaultValues: {
       title: "",
       duration: 0,
-      exerciseList: [{ name: "", minutes: 0, reps: undefined }],
+      exerciseList: [{ name: "", minutes: undefined, reps: undefined }],
     },
   });
 
@@ -194,7 +194,9 @@ function ExerciseInputButtons({
     <div className="flex justify-between items-center">
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
-          onClick={() => append({ name: "", minutes: 0, reps: undefined })}
+          onClick={() =>
+            append({ name: "", minutes: undefined, reps: undefined })
+          }
           disabled={fieldsLength >= 10}
           variant="secondary"
           className="text-sm h-8 my-2 w-40"
