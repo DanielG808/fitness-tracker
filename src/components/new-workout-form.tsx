@@ -5,7 +5,6 @@ import {
   FieldErrors,
   useFieldArray,
   UseFieldArrayAppend,
-  UseFieldArrayAppend,
   useForm,
   UseFormRegister,
   useWatch,
@@ -115,9 +114,8 @@ function WorkoutFormInputs({
   register,
   remove,
   fields,
-  errors,
-  remove,
-}: WorkoutFormInputsProps) {
+}: // errors,
+WorkoutFormInputsProps) {
   return (
     <>
       <Input
