@@ -195,7 +195,11 @@ function ExerciseInputButtons({
       <div className="flex flex-col sm:flex-row space-x-2">
         <Button
           onClick={() =>
-            append({ name: "", minutes: undefined, reps: undefined })
+            append({
+              name: "",
+              minutes: undefined,
+              reps: undefined,
+            } as unknown as WorkoutCreate["exerciseList"][number])
           }
           disabled={fieldsLength >= 10}
           variant="secondary"
