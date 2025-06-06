@@ -21,17 +21,17 @@ export const exerciseCreateSchema = exerciseSchema.omit({ id: true });
 
 export const workoutSchema = z.object({
   id: z.string(),
-  title: z.string().min(1, "Title is required."),
-  duration: z.number().int().positive("Duration must be a positive number."),
-  exerciseList: z
-    .array(exerciseSchema)
-    .min(1, "At least one exercise is required.")
-    .max(10),
+  title: z.string().min(1, "Workout title is required."),
+  duration: z.number().int().positive(),
+  exerciseList: z.array(exerciseSchema).min(1).max(10),
 });
 
 export const workoutCreateSchema = workoutSchema
   .extend({
-    exerciseList: z.array(exerciseCreateSchema).min(1).max(10),
+    exerciseList: z
+      .array(exerciseCreateSchema)
+      .min(1, "At least one exercise is required.")
+      .max(10, "You can only add up to 10 exercises."),
   })
   .omit({ id: true });
 
