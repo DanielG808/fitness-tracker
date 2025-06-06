@@ -11,10 +11,12 @@ export default function FormButtons({
   isSubmitting,
   closeModal,
 }: FormButtonsProps) {
+  const loadingButtonText = `${submitButtonText.split(" ")[0]}ing...`;
+
   return (
     <>
       <Button disabled={isSubmitting} type="submit">
-        {submitButtonText}
+        {isSubmitting ? loadingButtonText : submitButtonText}
       </Button>
       <Button disabled={isSubmitting} onClick={closeModal} variant="secondary">
         Cancel
