@@ -11,8 +11,6 @@ export default function FormButtons({
   isSubmitting,
   closeModal,
 }: FormButtonsProps) {
-  console.log(isSubmitting);
-
   return (
     <>
       <Button disabled={isSubmitting} type="submit">

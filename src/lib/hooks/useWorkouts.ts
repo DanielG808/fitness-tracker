@@ -47,8 +47,6 @@ export function useWorkouts() {
     async (data: WorkoutCreate): Promise<WorkoutCreate | null> => {
       await sleep(2);
 
-      console.log("Workout data submitted:", data);
-
       try {
         const validatedData = workoutCreateSchema.parse(data);
         const response = await fetch("/api/workouts", {
