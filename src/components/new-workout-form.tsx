@@ -37,7 +37,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         duration={duration}
       />
       <LineBreak />
-      <FormButtons closeModal={closeModal} />
+      <FormButtons submitButtonText="Add Workout" closeModal={closeModal} />
     </Form>
   );
 }
