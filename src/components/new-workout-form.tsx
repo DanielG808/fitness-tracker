@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  FieldErrors,
-  UseFieldArrayAppend,
-  UseFormRegister,
-} from "react-hook-form";
+import { UseFieldArrayAppend, UseFormRegister } from "react-hook-form";
 import { WorkoutCreate } from "@/lib/validations/workoutSchema";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import { useWorkouts } from "@/lib/hooks/useWorkouts";
@@ -21,7 +17,6 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   const {
     register,
     handleSubmit,
-    errors,
     fields,
     append,
     remove,
@@ -39,12 +34,8 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
       <WorkoutFormInputs
         register={register}
         fields={fields}
-        errors={errors}
-        remove={remove}
-      />
-      <ExerciseInputButtons
         append={append}
-        fieldsLength={fields.length}
+        remove={remove}
         duration={duration}
       />
       <LineBreak />
@@ -55,15 +46,18 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 
 type WorkoutFormInputsProps = {
   register: UseFormRegister<WorkoutCreate>;
+  append: UseFieldArrayAppend<WorkoutCreate, "exerciseList">;
   remove: (index: number) => void;
   fields: { id: string }[];
-  errors: FieldErrors<WorkoutCreate>;
+  duration: number;
 };
 
 function WorkoutFormInputs({
   register,
+  append,
   remove,
   fields,
+  duration,
 }: WorkoutFormInputsProps) {
   return (
     <>
@@ -124,46 +118,31 @@ function WorkoutFormInputs({
           </div>
         );
       })}
-    </>
-  );
-}
-
-type ExerciseInputButtonsProps = {
-  append: UseFieldArrayAppend<WorkoutCreate, "exerciseList">;
-  fieldsLength: number;
-  duration: number;
-};
-
-function ExerciseInputButtons({
-  append,
-  fieldsLength,
-  duration,
-}: ExerciseInputButtonsProps) {
-  return (
-    <div className="flex justify-between items-center">
-      <div className="flex flex-col sm:flex-row space-x-2">
-        <Button
-          onClick={() =>
-            append({
-              name: "",
-              minutes: undefined,
-              reps: undefined,
-            } as unknown as WorkoutCreate["exerciseList"][number])
-          }
-          disabled={fieldsLength >= 10}
-          variant="secondary"
-          className="text-sm h-8 my-2 w-40"
-        >
-          + Add exercise
-        </Button>
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row space-x-2">
+          <Button
+            onClick={() =>
+              append({
+                name: "",
+                minutes: undefined,
+                reps: undefined,
+              } as unknown as WorkoutCreate["exerciseList"][number])
+            }
+            disabled={fields.length >= 10}
+            variant="secondary"
+            className="text-sm h-8 my-2 w-40"
+          >
+            + Add exercise
+          </Button>
+        </div>
+        <p className="text-md font-semibold text-gray-700">
+          Total Duration:{" "}
+          <span className="font-normal text-black/75">
+            {duration ? duration : "--"} minutes
+          </span>
+        </p>
       </div>
-      <p className="text-md font-semibold text-gray-700">
-        Total Duration:{" "}
-        <span className="font-normal text-black/75">
-          {duration ? duration : "--"} minutes
-        </span>
-      </p>
-    </div>
+    </>
   );
 }
 
