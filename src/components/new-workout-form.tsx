@@ -15,6 +15,7 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
   const {
     register,
     handleSubmit,
+    isSubmitting,
     fields,
     append,
     remove,
@@ -37,7 +38,11 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
         duration={duration}
       />
       <LineBreak />
-      <FormButtons submitButtonText="Add Workout" closeModal={closeModal} />
+      <FormButtons
+        submitButtonText="Add Workout"
+        isSubmitting={isSubmitting}
+        closeModal={closeModal}
+      />
     </Form>
   );
 }
