@@ -65,13 +65,14 @@ export function useWorkouts() {
 
         const newWorkout: Workout = await response.json();
         toast.success(`${newWorkout.title} was successfully added!`);
+        router.refresh();
         return newWorkout;
       } catch (error) {
         console.error(error);
         throw new Error(`Failed to submit workout: ${error}`);
       }
     },
-    []
+    [router]
   );
 
   const deleteWorkout = useCallback(
