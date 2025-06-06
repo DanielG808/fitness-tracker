@@ -2,10 +2,10 @@
 
 import { WorkoutCreate } from "@/lib/validations/workoutSchema";
 import { useWorkouts } from "@/lib/hooks/useWorkouts";
-import Button from "./ui/button";
 import Form from "./ui/form";
 import LineBreak from "./ui/line-break";
 import WorkoutFormInputs from "./wokrout-form-inputs";
+import FormButtons from "./form-buttons";
 
 type NewWorkoutFormProps = {
   closeModal: () => void;
@@ -39,20 +39,5 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
       <LineBreak />
       <FormButtons closeModal={closeModal} />
     </Form>
-  );
-}
-
-type FormButtonsProps = {
-  closeModal: () => void;
-};
-
-function FormButtons({ closeModal }: FormButtonsProps) {
-  return (
-    <>
-      <Button type="submit">Add Workout</Button>
-      <Button onClick={closeModal} variant="secondary">
-        Cancel
-      </Button>
-    </>
   );
 }
