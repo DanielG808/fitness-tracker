@@ -2,7 +2,6 @@ import { useModal } from "@/lib/hooks/useModal";
 import Modal from "./ui/modal";
 import XButton from "./x-button";
 import DeleteForm from "./delete-form";
-import { TrashIcon } from "@heroicons/react/16/solid";
 
 type DeleteModalProps = {
   id: string;
