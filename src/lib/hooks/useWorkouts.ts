@@ -8,6 +8,7 @@ import {
   WorkoutCreate,
   workoutCreateSchema,
 } from "../validations/workoutSchema";
+import sleep from "../utils/sleep";
 
 export function useWorkouts() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export function useWorkouts() {
     control,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { isSubmitting, errors },
   } = useForm<WorkoutCreate>({
     resolver: zodResolver(workoutCreateSchema),
     defaultValues: {
@@ -44,7 +45,7 @@ export function useWorkouts() {
 
   const submitWorkout = useCallback(
     async (data: WorkoutCreate): Promise<WorkoutCreate | null> => {
-      console.log("Workout data submitted:", data);
+      await sleep(2);
 
       try {
         const validatedData = workoutCreateSchema.parse(data);
@@ -102,6 +103,7 @@ export function useWorkouts() {
   return {
     register,
     handleSubmit,
+    isSubmitting,
     errors,
     fields,
     append,

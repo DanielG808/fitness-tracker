@@ -21,8 +21,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   warning: "bg-red-600 text-background hover:text-white hover:bg-red-800",
 };
 
-const disabledStyles =
-  "opacity-50 cursor-not-allowed hover:bg-inherit hover:text-inherit";
+const disabledStyles = "opacity-50 pointer-events-none";
 
 export default function Button({
   type = "button",
