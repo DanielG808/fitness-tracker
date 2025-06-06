@@ -18,7 +18,7 @@ export default function FormButtons({
       <Button disabled={isSubmitting} type="submit">
         {submitButtonText}
       </Button>
-      <Button onClick={closeModal} variant="secondary">
+      <Button disabled={isSubmitting} onClick={closeModal} variant="secondary">
         Cancel
       </Button>
     </>
