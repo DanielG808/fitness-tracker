@@ -34,7 +34,9 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      {Object.keys(errors).length > 0 && <ErrorMessageContainer />}
+      {Object.keys(errors).length > 0 && (
+        <ErrorMessageContainer errors={errors} />
+      )}
       <WorkoutFormInputs
         register={register}
         fields={fields}
