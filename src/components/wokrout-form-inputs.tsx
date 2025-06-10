@@ -60,7 +60,8 @@ export default function WorkoutFormInputs({
             <Input
               type="number"
               {...register(`exerciseList.${index}.reps`, {
-                valueAsNumber: true,
+                setValueAs: (v) =>
+                  v === "" || isNaN(Number(v)) ? undefined : Number(v),
               })}
               label="Reps (optional):"
               placeholder="eg. 10"

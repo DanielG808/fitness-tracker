@@ -12,6 +12,11 @@ export default function ErrorMessageContainer({
   return (
     <div>
       <p>{titleError?.message}</p>
+      <p>
+        {errors?.exerciseList?.[0].name || errors?.exerciseList?.[0].minutes
+          ? "At least one exercise is required."
+          : null}
+      </p>
     </div>
   );
 }
