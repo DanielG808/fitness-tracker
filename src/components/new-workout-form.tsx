@@ -30,8 +30,6 @@ export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
     if (result) closeModal();
   }
 
-  console.log(errors);
-
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       {Object.keys(errors).length > 0 && (

@@ -1,22 +1,29 @@
+import { WorkoutCreate } from "@/lib/validations/workoutSchema";
 import { FieldError, FieldErrors } from "react-hook-form";
 
 type ErrorMessageContainerProps = {
-  errors: FieldErrors;
+  errors: FieldErrors<WorkoutCreate>;
 };
 
 export default function ErrorMessageContainer({
   errors,
 }: ErrorMessageContainerProps) {
-  const titleError = errors?.title as FieldError | undefined;
+  const titleError = errors.title as FieldError;
+  const exerciseListErrors =
+    errors.exerciseList as FieldErrors<WorkoutCreate>["exerciseList"];
+
+  const firstNameError = Array.isArray(exerciseListErrors)
+    ? exerciseListErrors.find((err) => err?.name)?.name?.message
+    : null;
+  const firstMinutesError = Array.isArray(exerciseListErrors)
+    ? exerciseListErrors.find((err) => err?.minutes)?.minutes
+    : null;
 
   return (
     <div>
-      <p>{titleError?.message}</p>
-      <p>
-        {errors?.exerciseList?.[0].name || errors?.exerciseList?.[0].minutes
-          ? "At least one exercise is required."
-          : null}
-      </p>
+      {titleError?.message && <p>{titleError.message}</p>}
+      {firstNameError && <p>{firstNameError}</p>}
+      {firstMinutesError && <p>Exercise minutes field is required.</p>}
     </div>
   );
 }
