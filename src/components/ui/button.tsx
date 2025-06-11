@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils/cn";
 
-type ButtonVariant = "primary" | "secondary" | "warning";
+type ButtonVariant = "primary" | "secondary" | "warning" | "icon";
 
 type ButtonProps = {
   type?: "button" | "submit" | "reset";
@@ -19,6 +19,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   secondary:
     "bg-background-light/65 text-black/75 hover:bg-background-light hover:text-black/75",
   warning: "bg-red-600 text-background hover:text-white hover:bg-red-800",
+  icon: "flex items-center bg-white p-0 w-auto text-background-light hover:text-background-dark hover:bg-white",
 };
 
 const disabledStyles = "opacity-50 pointer-events-none";
