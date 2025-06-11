@@ -17,10 +17,13 @@ export default function ErrorMessageContainer({
     getFirstExerciseErrors(exerciseListErrors);
 
   return (
-    <div>
-      {titleError?.message && <p>{titleError.message}</p>}
-      {firstNameError && <p>{firstNameError}</p>}
-      {firstMinutesError && <p>Exercise minutes field is required.</p>}
-    </div>
+    <section className="border-2 border-red-400 bg-red-200 px-4 py-2 rounded-md text-red-700">
+      <h1 className="font-semibold text-lg">Errors:</h1>
+      <ul className="pl-2 pt-1">
+        {titleError?.message && <li>{`• ${titleError.message}`}</li>}
+        {firstNameError && <li>{`• ${firstNameError}`}</li>}
+        {firstMinutesError && <li>• Exercise minutes field is required.</li>}
+      </ul>
+    </section>
   );
 }
