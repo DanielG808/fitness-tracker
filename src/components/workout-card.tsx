@@ -3,6 +3,7 @@
 import { Workout } from "@/lib/validations/workoutSchema";
 import WorkoutDetails from "./workout-details";
 import DeleteModal from "./delete-modal";
+import WorkoutCardControls from "./workout-card-controls";
 
 type WorkoutCardProps = {
   workout: Workout;
@@ -20,7 +21,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
           duration={duration}
           exerciseList={exerciseList}
         />
-        <DeleteModal id={id} title={title} />
+        <WorkoutCardControls id={id} title={title} />
       </article>
     </li>
   );

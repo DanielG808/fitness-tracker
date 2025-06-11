@@ -9,10 +9,7 @@ type XButtonProps = {
 
 export default function XButton({ onClick }: XButtonProps) {
   return (
-    <Button
-      onClick={onClick}
-      className="flex items-center bg-white p-0 w-auto text-background-light hover:text-background-dark hover:bg-white"
-    >
+    <Button variant="icon" onClick={onClick}>
       <XMarkIcon className="h-6 w-6" />
     </Button>
   );
