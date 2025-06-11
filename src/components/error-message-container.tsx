@@ -16,6 +16,11 @@ export default function ErrorMessageContainer({
   const { name: firstNameError, minutes: firstMinutesError } =
     getFirstExerciseErrors(exerciseListErrors);
 
+  const hasAnyError =
+    titleError?.message || firstNameError || firstMinutesError;
+
+  if (!hasAnyError) return null;
+
   return (
     <section className="border-2 border-red-400 bg-red-200 px-4 py-2 rounded-md text-red-700">
       <h1 className="font-semibold text-lg">Errors:</h1>
