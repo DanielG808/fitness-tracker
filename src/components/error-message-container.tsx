@@ -1,3 +1,4 @@
+import { getFirstExerciseErrors } from "@/lib/utils/getFirstExerciseErrors";
 import { WorkoutCreate } from "@/lib/validations/workoutSchema";
 import { FieldError, FieldErrors } from "react-hook-form";
 
@@ -12,12 +13,8 @@ export default function ErrorMessageContainer({
   const exerciseListErrors =
     errors.exerciseList as FieldErrors<WorkoutCreate>["exerciseList"];
 
-  const firstNameError = Array.isArray(exerciseListErrors)
-    ? exerciseListErrors.find((err) => err?.name)?.name?.message
-    : null;
-  const firstMinutesError = Array.isArray(exerciseListErrors)
-    ? exerciseListErrors.find((err) => err?.minutes)?.minutes
-    : null;
+  const { name: firstNameError, minutes: firstMinutesError } =
+    getFirstExerciseErrors(exerciseListErrors);
 
   return (
     <div>
