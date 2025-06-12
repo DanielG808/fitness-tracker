@@ -1,11 +1,9 @@
 import { cn } from "@/lib/utils/cn";
 
-type ButtonVariant = "primary" | "secondary" | "warning" | "icon";
-
 type ButtonProps = {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
-  variant?: ButtonVariant;
+  variant?: ButtonVariants;
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
@@ -14,7 +12,7 @@ type ButtonProps = {
 const baseStyles =
   "flex justify-center items-center p-3 rounded-md w-auto duration-300 cursor-pointer";
 
-const variantStyles: Record<ButtonVariant, string> = {
+const variantStyles: Record<ButtonVariants, string> = {
   primary: "bg-primary text-background hover:text-white hover:bg-primary-dark",
   secondary:
     "bg-background-light/65 text-black/75 hover:bg-background-light hover:text-black/75",

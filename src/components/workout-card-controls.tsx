@@ -4,6 +4,7 @@ import {
 } from "@heroicons/react/16/solid";
 import DeleteModal from "./delete-modal";
 import Button from "./ui/button";
+import WorkoutModal from "./workout-modal";
 
 type WorkoutCardControlsProps = {
   id: string;
@@ -19,9 +20,10 @@ export default function WorkoutCardControls({
       <Button variant="icon">
         <ArrowsPointingOutIcon className="h-5 w-5" />
       </Button>
-      <Button variant="icon">
-        <PencilSquareIcon className="h-5 w-5" />
-      </Button>
+      <WorkoutModal
+        icon={<PencilSquareIcon className="h-5 w-5" />}
+        buttonVariant="icon"
+      />
       <DeleteModal id={id} title={title} />
     </section>
   );

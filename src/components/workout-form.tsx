@@ -12,7 +12,7 @@ type NewWorkoutFormProps = {
   closeModal: () => void;
 };
 
-export default function NewWorkoutForm({ closeModal }: NewWorkoutFormProps) {
+export default function WorkoutForm({ closeModal }: NewWorkoutFormProps) {
   const {
     register,
     handleSubmit,
