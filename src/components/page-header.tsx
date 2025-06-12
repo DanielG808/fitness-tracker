@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils/cn";
 import H2 from "./ui/h2";
-import NewWorkoutModal from "./new-workout-modal";
+import WorkoutModal from "./workout-modal";
 
 type PageHeaderProps = {
   title: string;
@@ -24,7 +24,7 @@ export default function PageHeader({
     >
       <H2>{title}</H2>
       {action && (
-        <NewWorkoutModal
+        <WorkoutModal
           buttonText="+ New Workout"
           className="mt-6 sm:mt-0 w-full sm:w-auto"
         />
