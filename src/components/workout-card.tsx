@@ -2,7 +2,6 @@
 
 import { Workout } from "@/lib/validations/workoutSchema";
 import WorkoutDetails from "./workout-details";
-import DeleteModal from "./delete-modal";
 import WorkoutCardControls from "./workout-card-controls";
 
 type WorkoutCardProps = {
