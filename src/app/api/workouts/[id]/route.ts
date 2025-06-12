@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { deleteWorkout, getWorkout, updateWorkout } from "./controller";
-import { WorkoutCreate } from "@/lib/validations/workoutSchema";
+import {
+  WorkoutCreate,
+  workoutCreateSchema,
+} from "@/lib/validations/workoutSchema";
 
 export async function GET(
   req: Request,
@@ -25,10 +28,23 @@ export async function PUT(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
-  const data: WorkoutCreate = await req.json();
-  const response = await updateWorkout(id, data);
-  return NextResponse.json(response);
+  try {
+    const { id } = await params;
+    const body = await req.json();
+    const data = workoutCreateSchema.parse(body);
+    const updatedWorkout = await updateWorkout(id, data);
+    return NextResponse.json(updatedWorkout);
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === "WORKOUT_NOT_FOUND") {
+      return NextResponse.json(
+        { error: "Workout not found." },
+        { status: 404 }
+      );
+    }
+
+    console.error("PUT /api/workouts/[id] error:", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
 }
 
 export async function DELETE(
