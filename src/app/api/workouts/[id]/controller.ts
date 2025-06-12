@@ -10,6 +10,14 @@ export async function getWorkout(id: string) {
 }
 
 export async function updateWorkout(workoutId: string, data: WorkoutCreate) {
+  const existingWorkout = await prisma.workout.findUnique({
+    where: { id: workoutId },
+  });
+
+  if (!existingWorkout) {
+    throw new Error("WORKOUT_NOT_FOUND");
+  }
+
   try {
     const updatedWorkout = await prisma.$transaction(async (tx) => {
       await tx.workout.update({
