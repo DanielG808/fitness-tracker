@@ -1,4 +1,4 @@
-import { WorkoutCreate } from "@/lib/validations/workoutSchema";
+import { Workout, WorkoutCreate } from "@/lib/validations/workoutSchema";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import { UseFormRegister, UseFieldArrayAppend } from "react-hook-form";
 import Button from "./ui/button";
@@ -9,6 +9,7 @@ type WorkoutFormInputsProps = {
   append: UseFieldArrayAppend<WorkoutCreate, "exerciseList">;
   remove: (index: number) => void;
   fields: { id: string }[];
+
   duration: number;
 };
 
@@ -17,6 +18,7 @@ export default function WorkoutFormInputs({
   append,
   remove,
   fields,
+
   duration,
 }: WorkoutFormInputsProps) {
   return (
