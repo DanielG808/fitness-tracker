@@ -9,8 +9,9 @@ import {
   workoutCreateSchema,
 } from "../validations/workoutSchema";
 import sleep from "../utils/sleep";
+import { WorkoutFormTypes } from "../constants/workoutFormTypes";
 
-export function useWorkouts() {
+export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
   const router = useRouter();
   const {
     register,
@@ -20,11 +21,22 @@ export function useWorkouts() {
     formState: { isSubmitting, errors },
   } = useForm<WorkoutCreate>({
     resolver: zodResolver(workoutCreateSchema),
-    defaultValues: {
-      title: "",
-      duration: 0,
-      exerciseList: [{ name: "", minutes: undefined, reps: undefined }],
-    },
+    defaultValues:
+      action === "edit" && workout
+        ? {
+            title: workout.title,
+            duration: workout.duration,
+            exerciseList: workout.exerciseList.map((ex) => ({
+              name: ex.name,
+              minutes: ex.minutes,
+              reps: ex.reps ?? undefined,
+            })),
+          }
+        : {
+            title: "",
+            duration: 0,
+            exerciseList: [{ name: "", minutes: undefined, reps: undefined }],
+          },
   });
 
   const { fields, append, remove } = useFieldArray({

@@ -6,8 +6,10 @@ import Modal from "./ui/modal";
 import { useModal } from "@/lib/hooks/useModal";
 import { ReactNode } from "react";
 import { WorkoutFormTypes } from "@/lib/constants/workoutFormTypes";
+import { Workout } from "@/lib/validations/workoutSchema";
 
 type OpenModalButtonProps = {
+  workout?: Workout;
   action: WorkoutFormTypes;
   icon?: ReactNode;
   buttonText?: string;
@@ -16,6 +18,7 @@ type OpenModalButtonProps = {
 };
 
 export default function WorkoutModal({
+  workout,
   action,
   icon,
   buttonText,
@@ -35,7 +38,11 @@ export default function WorkoutModal({
           closeModal={closeModal}
           heading={action === "add" ? "Add New Workout" : "Edit Workout"}
         >
-          <WorkoutForm action={action} closeModal={closeModal} />
+          <WorkoutForm
+            workout={workout}
+            action={action}
+            closeModal={closeModal}
+          />
         </Modal>
       )}
     </>

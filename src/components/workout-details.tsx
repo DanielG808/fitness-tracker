@@ -1,13 +1,11 @@
 import { Workout } from "@/lib/validations/workoutSchema";
 import H2 from "./ui/h2";
 
-type WorkoutDetailsProps = Workout;
+type WorkoutDetailsProps = { workout: Workout };
 
-export default function WorkoutDetails({
-  title,
-  duration,
-  exerciseList,
-}: WorkoutDetailsProps) {
+export default function WorkoutDetails({ workout }: WorkoutDetailsProps) {
+  const { id, title, duration, exerciseList } = workout;
+
   return (
     <div className="flex flex-col justify-between h-full w-full px-2">
       <header className="flex flex-col justify-between h-full sm:h-auto sm:justify-start sm:flex-row sm:items-center">

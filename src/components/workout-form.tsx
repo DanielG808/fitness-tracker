@@ -1,6 +1,6 @@
 "use client";
 
-import { WorkoutCreate } from "@/lib/validations/workoutSchema";
+import { Workout, WorkoutCreate } from "@/lib/validations/workoutSchema";
 import { useWorkouts } from "@/lib/hooks/useWorkouts";
 import Form from "./ui/form";
 import LineBreak from "./ui/line-break";
@@ -10,11 +10,13 @@ import ErrorMessageContainer from "./error-message-container";
 import { WorkoutFormTypes } from "@/lib/constants/workoutFormTypes";
 
 type NewWorkoutFormProps = {
+  workout?: Workout;
   action: WorkoutFormTypes;
   closeModal: () => void;
 };
 
 export default function WorkoutForm({
+  workout,
   action,
   closeModal,
 }: NewWorkoutFormProps) {
@@ -28,7 +30,7 @@ export default function WorkoutForm({
     remove,
     submitWorkout,
     duration,
-  } = useWorkouts();
+  } = useWorkouts(action, workout);
 
   async function onSubmit(data: WorkoutCreate) {
     const result = await submitWorkout(data);
