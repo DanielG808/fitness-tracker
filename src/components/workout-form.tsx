@@ -7,12 +7,17 @@ import LineBreak from "./ui/line-break";
 import WorkoutFormInputs from "./wokrout-form-inputs";
 import FormButtons from "./form-buttons";
 import ErrorMessageContainer from "./error-message-container";
+import { WorkoutFormTypes } from "@/lib/constants/workoutFormTypes";
 
 type NewWorkoutFormProps = {
+  action: WorkoutFormTypes;
   closeModal: () => void;
 };
 
-export default function WorkoutForm({ closeModal }: NewWorkoutFormProps) {
+export default function WorkoutForm({
+  action,
+  closeModal,
+}: NewWorkoutFormProps) {
   const {
     register,
     handleSubmit,
