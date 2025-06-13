@@ -25,6 +25,7 @@ export default function PageHeader({
       <H2>{title}</H2>
       {action && (
         <WorkoutModal
+          action="add"
           buttonText="+ New Workout"
           className="mt-6 sm:mt-0 w-full sm:w-auto"
         />

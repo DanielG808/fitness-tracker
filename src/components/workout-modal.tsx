@@ -30,7 +30,11 @@ export default function WorkoutModal({
         {icon ?? buttonText}
       </Button>
       {open && (
-        <Modal open={open} closeModal={closeModal} heading={"Add New Workout"}>
+        <Modal
+          open={open}
+          closeModal={closeModal}
+          heading={action === "add" ? "Add New Workout" : "Edit Workout"}
+        >
           <WorkoutForm action={action} closeModal={closeModal} />
         </Modal>
       )}

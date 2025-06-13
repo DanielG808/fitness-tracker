@@ -21,6 +21,7 @@ export default function WorkoutCardControls({
         <ArrowsPointingOutIcon className="h-5 w-5" />
       </Button>
       <WorkoutModal
+        action="edit"
         icon={<PencilSquareIcon className="h-5 w-5" />}
         buttonVariant="icon"
       />

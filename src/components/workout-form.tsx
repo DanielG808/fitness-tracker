@@ -49,7 +49,7 @@ export default function WorkoutForm({
       />
       <LineBreak />
       <FormButtons
-        submitButtonText="Add Workout"
+        submitButtonText={action === "add" ? "Add Workout" : "Edit Workout"}
         isSubmitting={isSubmitting}
         closeModal={closeModal}
       />
