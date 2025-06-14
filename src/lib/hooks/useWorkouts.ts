@@ -55,7 +55,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     setValue("duration", total);
   }, [exerciseList, setValue]);
 
-  const submitWorkout = useCallback(
+  const createWorkout = useCallback(
     async (data: WorkoutCreate): Promise<Workout | null> => {
       await sleep(2);
 
@@ -148,7 +148,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
   async function onSubmit(data: WorkoutCreate) {
     const result =
       action === "add"
-        ? await submitWorkout(data)
+        ? await createWorkout(data)
         : workout && (await updateWorkout(workout.id, data));
     return result;
   }
