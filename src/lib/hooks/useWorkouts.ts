@@ -87,8 +87,14 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     [router]
   );
 
+  // const updateWorkout = useCallback(
+  //   async (id: string, data: WorkoutCreate) {
+
+  //   }
+  // )
+
   const deleteWorkout = useCallback(
-    async (id: string) => {
+    async (id: string): Promise<boolean> => {
       try {
         const response = await fetch(`/api/workouts/${id}`, {
           method: "DELETE",

@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { deleteWorkout, getWorkout, updateWorkout } from "./controller";
-import {
-  WorkoutCreate,
-  workoutCreateSchema,
-} from "@/lib/validations/workoutSchema";
+import { workoutCreateSchema } from "@/lib/validations/workoutSchema";
 
 export async function GET(
   req: Request,
