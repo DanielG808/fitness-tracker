@@ -29,11 +29,15 @@ export default function WorkoutForm({
     append,
     remove,
     submitWorkout,
+    updateWorkout,
     duration,
   } = useWorkouts(action, workout);
 
   async function onSubmit(data: WorkoutCreate) {
-    const result = await submitWorkout(data);
+    const result =
+      action === "add"
+        ? await submitWorkout(data)
+        : workout && (await updateWorkout(workout.id, data));
     if (result) closeModal();
   }
 
