@@ -145,6 +145,14 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     [router]
   );
 
+  async function onSubmit(data: WorkoutCreate) {
+    const result =
+      action === "add"
+        ? await submitWorkout(data)
+        : workout && (await updateWorkout(workout.id, data));
+    return result;
+  }
+
   return {
     register,
     handleSubmit,
@@ -154,8 +162,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     append,
     remove,
     duration,
-    submitWorkout,
-    updateWorkout,
+    onSubmit,
     deleteWorkout,
   };
 }

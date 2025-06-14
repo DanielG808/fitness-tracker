@@ -1,13 +1,13 @@
 "use client";
 
-import { Workout, WorkoutCreate } from "@/lib/validations/workoutSchema";
+import { Workout } from "@/lib/validations/workoutSchema";
+import { WorkoutFormTypes } from "@/lib/constants/workoutFormTypes";
 import { useWorkouts } from "@/lib/hooks/useWorkouts";
 import Form from "./ui/form";
-import LineBreak from "./ui/line-break";
-import WorkoutFormInputs from "./wokrout-form-inputs";
-import FormButtons from "./form-buttons";
 import ErrorMessageContainer from "./error-message-container";
-import { WorkoutFormTypes } from "@/lib/constants/workoutFormTypes";
+import WorkoutFormInputs from "./wokrout-form-inputs";
+import LineBreak from "./ui/line-break";
+import FormButtons from "./form-buttons";
 
 type NewWorkoutFormProps = {
   workout?: Workout;
@@ -28,21 +28,17 @@ export default function WorkoutForm({
     errors,
     append,
     remove,
-    submitWorkout,
-    updateWorkout,
+    onSubmit,
     duration,
   } = useWorkouts(action, workout);
 
-  async function onSubmit(data: WorkoutCreate) {
-    const result =
-      action === "add"
-        ? await submitWorkout(data)
-        : workout && (await updateWorkout(workout.id, data));
-    if (result) closeModal();
-  }
-
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(async (data) => {
+        const result = await onSubmit(data);
+        if (result) closeModal();
+      })}
+    >
       {Object.keys(errors).length > 0 && (
         <ErrorMessageContainer errors={errors} />
       )}
