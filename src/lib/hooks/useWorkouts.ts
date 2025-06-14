@@ -56,7 +56,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
   }, [exerciseList, setValue]);
 
   const submitWorkout = useCallback(
-    async (data: WorkoutCreate): Promise<WorkoutCreate | null> => {
+    async (data: WorkoutCreate): Promise<Workout | null> => {
       await sleep(2);
 
       try {
@@ -87,11 +87,37 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     [router]
   );
 
-  // const updateWorkout = useCallback(
-  //   async (id: string, data: WorkoutCreate) {
+  const updateWorkout = useCallback(
+    async (id: string, data: WorkoutCreate): Promise<Workout | null> => {
+      await sleep(2);
 
-  //   }
-  // )
+      try {
+        const validatedData = workoutCreateSchema.parse(data);
+        const response = await fetch(`/api/workouts/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(validatedData),
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to edit workout: ${response.status} ${response.statusText}`
+          );
+        }
+
+        const updatedWorkout: Workout = await response.json();
+        toast.success(`${updatedWorkout.title} was successfully updated!`);
+        router.refresh();
+        return updatedWorkout;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to edit workout: ${error}`);
+      }
+    },
+    [router]
+  );
 
   const deleteWorkout = useCallback(
     async (id: string): Promise<boolean> => {
@@ -129,6 +155,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     remove,
     duration,
     submitWorkout,
+    updateWorkout,
     deleteWorkout,
   };
 }
