@@ -2,6 +2,7 @@ import { renderHook, act } from "@testing-library/react";
 import { toast } from "sonner";
 import { useWorkouts } from "./useWorkouts";
 import { Workout, WorkoutCreate } from "../validations/workoutSchema";
+import { headers } from "next/headers";
 
 const router = {
   refresh: jest.fn(),
@@ -109,5 +110,23 @@ describe("useWorkouts", () => {
         body: JSON.stringify(newData),
       })
     );
+  });
+
+  it("deletes a workout successfully", async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+    });
+
+    const { result } = renderHook(() => useWorkouts("edit", undefined));
+
+    const success = await act(async () => {
+      return await result.current.deleteWorkout("123");
+    });
+
+    expect(fetch).toHaveBeenCalledWith("/api/workouts/123", {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" },
+    });
+    expect(success).toBe(true);
   });
 });
