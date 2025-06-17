@@ -1,7 +1,7 @@
 import { renderHook, act } from "@testing-library/react";
 import { toast } from "sonner";
 import { useWorkouts } from "./useWorkouts";
-import { WorkoutCreate } from "../validations/workoutSchema";
+import { Workout, WorkoutCreate } from "../validations/workoutSchema";
 
 const router = {
   refresh: jest.fn(),
@@ -20,13 +20,13 @@ jest.mock("sonner", () => ({
 
 global.fetch = jest.fn();
 
-const mockWorkout = {
+const mockWorkout: Workout = {
   id: "123",
   title: "Test Workout",
   duration: 30,
   exerciseList: [
-    { name: "Push Ups", minutes: 10, reps: 20 },
-    { name: "Squats", minutes: 20, reps: 30 },
+    { id: "1", name: "Push Ups", minutes: 10, reps: 20 },
+    { id: "2", name: "Squats", minutes: 20, reps: 30 },
   ],
 };
 
@@ -41,7 +41,7 @@ describe("useWorkouts", () => {
       json: async () => mockWorkout,
     });
 
-    const { result } = renderHook(() => useWorkouts("edit", undefined));
+    const { result } = renderHook(() => useWorkouts("add", undefined));
 
     const data: WorkoutCreate = {
       title: "Test Workout",
@@ -56,10 +56,58 @@ describe("useWorkouts", () => {
       await result.current.onSubmit(data);
     });
 
-    expect(fetch).toHaveBeenCalledWith("/api/workouts", expect.any(Object));
+    expect(fetch).toHaveBeenCalledWith(
+      "/api/workouts",
+      expect.objectContaining({
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(data),
+      })
+    );
     expect(router.refresh).toHaveBeenCalled();
     expect(toast.success).toHaveBeenCalledWith(
       `${mockWorkout.title} was successfully added!`
+    );
+  });
+
+  it("updates a workout successfully", async () => {
+    const updatedWorkout: Workout = {
+      ...mockWorkout,
+      title: "Updated Workout",
+      duration: 40,
+      exerciseList: [
+        { id: "a", name: "Push Ups", minutes: 10, reps: 20 },
+        { id: "b", name: "Lunges", minutes: 25, reps: 35 },
+      ],
+    };
+
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => updatedWorkout,
+    });
+
+    const { result } = renderHook(() => useWorkouts("edit", mockWorkout));
+
+    const newData: WorkoutCreate = {
+      title: "Updated Workout",
+      duration: 40,
+      exerciseList: [
+        { name: "Push Ups", minutes: 10, reps: 20 },
+        { name: "Lunges", minutes: 25, reps: 35 },
+      ],
+    };
+
+    await act(async () => {
+      await result.current.onSubmit(newData);
+    });
+
+    expect(fetch).toHaveBeenCalledWith(
+      "/api/workouts/123",
+      expect.objectContaining({
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(newData),
+      })
     );
   });
 });
