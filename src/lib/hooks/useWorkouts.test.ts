@@ -2,7 +2,6 @@ import { renderHook, act } from "@testing-library/react";
 import { toast } from "sonner";
 import { useWorkouts } from "./useWorkouts";
 import { Workout, WorkoutCreate } from "../validations/workoutSchema";
-import { headers } from "next/headers";
 
 const router = {
   refresh: jest.fn(),
@@ -110,6 +109,10 @@ describe("useWorkouts", () => {
         body: JSON.stringify(newData),
       })
     );
+    expect(router.refresh).toHaveBeenCalled();
+    expect(toast.success).toHaveBeenLastCalledWith(
+      "Updated Workout was successfully updated!"
+    );
   });
 
   it("deletes a workout successfully", async () => {
@@ -127,6 +130,8 @@ describe("useWorkouts", () => {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     });
+    expect(router.refresh).toHaveBeenCalled();
+    expect(toast.success).toHaveBeenLastCalledWith("Workout has been deleted!");
     expect(success).toBe(true);
   });
 });
