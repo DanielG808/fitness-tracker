@@ -134,4 +134,26 @@ describe("useWorkouts", () => {
     expect(toast.success).toHaveBeenLastCalledWith("Workout has been deleted!");
     expect(success).toBe(true);
   });
+
+  it("fails to submit a new workout", async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+
+    const { result } = renderHook(() => useWorkouts("add", undefined));
+
+    const data: WorkoutCreate = {
+      title: "Bad Workout",
+      duration: 20,
+      exerciseList: [{ name: "Sit Ups", minutes: 20, reps: 30 }],
+    };
+
+    await expect(
+      act(async () => {
+        await result.current.onSubmit(data);
+      })
+    ).rejects.toThrow("Failed to submit workout");
+  });
 });
