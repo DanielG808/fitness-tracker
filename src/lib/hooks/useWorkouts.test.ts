@@ -164,4 +164,37 @@ describe("useWorkouts", () => {
     );
     expect((error as Error).message).toMatch("Failed to submit workout");
   });
+
+  it("fails to update a workout", async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+
+    const { result } = renderHook(() => useWorkouts("edit", mockWorkout));
+
+    const newData: WorkoutCreate = {
+      title: "Updated Workout",
+      duration: 40,
+      exerciseList: [
+        { name: "Push Ups", minutes: 10, reps: 20 },
+        { name: "Lunges", minutes: 25, reps: 35 },
+      ],
+    };
+
+    let error: unknown;
+    await act(async () => {
+      try {
+        await result.current.onSubmit(newData);
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    expect(toast.warning).toHaveBeenCalledWith(
+      "Workout was not successfully updated."
+    );
+    expect((error as Error).message).toMatch("Failed to edit workout");
+  });
 });

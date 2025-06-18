@@ -104,6 +104,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         });
 
         if (!response.ok) {
+          toast.warning("Workout was not successfully updated.");
           throw new Error(
             `Failed to edit workout: ${response.status} ${response.statusText}`
           );
@@ -133,6 +134,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         });
 
         if (!response.ok) {
+          toast.warning("Workout was not successfully deleted.");
           throw new Error(`Error: ${response.statusText}`);
         }
 
