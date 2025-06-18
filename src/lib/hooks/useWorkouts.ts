@@ -144,7 +144,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
       } catch (error) {
         console.error("Failed to delete workout:", error);
         toast.warning("Workout was not successfully deleted.");
-        return false;
+        throw new Error(`Failed to delete workout: ${error}`);
       }
     },
     [router]

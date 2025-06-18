@@ -197,4 +197,28 @@ describe("useWorkouts", () => {
     );
     expect((error as Error).message).toMatch("Failed to edit workout");
   });
+
+  it("fails to delete a workout", async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+
+    const { result } = renderHook(() => useWorkouts("edit", undefined));
+
+    let error: unknown;
+    await act(async () => {
+      try {
+        await result.current.deleteWorkout("123");
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    expect(toast.warning).toHaveBeenCalledWith(
+      "Workout was not successfully deleted."
+    );
+    expect((error as Error).message).toMatch("Failed to delete workout");
+  });
 });
