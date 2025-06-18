@@ -70,6 +70,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         });
 
         if (!response.ok) {
+          toast.warning("Workout was not successfully added.");
           throw new Error(
             `Failed to submit workout: ${response.status} ${response.statusText}`
           );
@@ -81,6 +82,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         return newWorkout;
       } catch (error) {
         console.error(error);
+        toast.warning("Workout was not successfully added.");
         throw new Error(`Failed to submit workout: ${error}`);
       }
     },
@@ -113,6 +115,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         return updatedWorkout;
       } catch (error) {
         console.error(error);
+        toast.warning("Workout was not successfully updated.");
         throw new Error(`Failed to edit workout: ${error}`);
       }
     },

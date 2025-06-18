@@ -150,10 +150,18 @@ describe("useWorkouts", () => {
       exerciseList: [{ name: "Sit Ups", minutes: 20, reps: 30 }],
     };
 
-    await expect(
-      act(async () => {
+    let error: unknown;
+    await act(async () => {
+      try {
         await result.current.onSubmit(data);
-      })
-    ).rejects.toThrow("Failed to submit workout");
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    expect(toast.warning).toHaveBeenCalledWith(
+      "Workout was not successfully added."
+    );
+    expect((error as Error).message).toMatch("Failed to submit workout");
   });
 });
