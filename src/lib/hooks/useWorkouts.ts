@@ -10,6 +10,7 @@ import {
 } from "../validations/workoutSchema";
 import sleep from "../utils/sleep";
 import { WorkoutFormTypes } from "../constants/workoutFormTypes";
+import { calculateDuration } from "../utils/calculateDuration";
 
 export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
   const router = useRouter();
@@ -48,10 +49,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
   const duration = useWatch({ control, name: "duration" });
 
   useEffect(() => {
-    const total = exerciseList?.reduce(
-      (sum, ex) => sum + (Number(ex.minutes) || 0),
-      0
-    );
+    const total = calculateDuration(exerciseList);
     setValue("duration", total);
   }, [exerciseList, setValue]);
 
