@@ -53,8 +53,8 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     setValue("duration", total);
   }, [exerciseList, setValue]);
 
-  const submitWorkout = useCallback(
-    async (data: WorkoutCreate): Promise<WorkoutCreate | null> => {
+  const createWorkout = useCallback(
+    async (data: WorkoutCreate): Promise<Workout | null> => {
       await sleep(2);
 
       try {
@@ -85,8 +85,40 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     [router]
   );
 
+  const updateWorkout = useCallback(
+    async (id: string, data: WorkoutCreate): Promise<Workout | null> => {
+      await sleep(2);
+
+      try {
+        const validatedData = workoutCreateSchema.parse(data);
+        const response = await fetch(`/api/workouts/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(validatedData),
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to edit workout: ${response.status} ${response.statusText}`
+          );
+        }
+
+        const updatedWorkout: Workout = await response.json();
+        toast.success(`${updatedWorkout.title} was successfully updated!`);
+        router.refresh();
+        return updatedWorkout;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Failed to edit workout: ${error}`);
+      }
+    },
+    [router]
+  );
+
   const deleteWorkout = useCallback(
-    async (id: string) => {
+    async (id: string): Promise<boolean> => {
       try {
         const response = await fetch(`/api/workouts/${id}`, {
           method: "DELETE",
@@ -111,6 +143,14 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     [router]
   );
 
+  async function onSubmit(data: WorkoutCreate) {
+    const result =
+      action === "add"
+        ? await createWorkout(data)
+        : workout && (await updateWorkout(workout.id, data));
+    return result;
+  }
+
   return {
     register,
     handleSubmit,
@@ -120,7 +160,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
     append,
     remove,
     duration,
-    submitWorkout,
+    onSubmit,
     deleteWorkout,
   };
 }
