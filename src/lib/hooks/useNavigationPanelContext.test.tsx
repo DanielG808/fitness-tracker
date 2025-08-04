@@ -30,13 +30,13 @@ describe("useNavigationPanelContext", () => {
     const panelState = screen.getByTestId("panel-state");
     const toggleButton = screen.getByText("Toggle");
 
-    expect(panelState.textContent).toEqual("open");
-
-    fireEvent.click(toggleButton);
     expect(panelState.textContent).toEqual("closed");
 
     fireEvent.click(toggleButton);
     expect(panelState.textContent).toEqual("open");
+
+    fireEvent.click(toggleButton);
+    expect(panelState.textContent).toEqual("closed");
   });
 
   it("throws an error when hook is called outside context provider", () => {
