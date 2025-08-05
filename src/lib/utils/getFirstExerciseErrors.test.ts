@@ -35,4 +35,13 @@ describe("getFirstExerciseErrors", () => {
       minutes: null,
     });
   });
+
+  it("returnd nulls if no errors found in any items", () => {
+    const mockErrors = [{}] as unknown as NonNullable<
+      FieldErrors<WorkoutCreate>["exerciseList"]
+    >;
+
+    const result = getFirstExerciseErrors(mockErrors);
+    expect(result).toEqual({ name: null, minutes: null });
+  });
 });
