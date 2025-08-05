@@ -22,4 +22,17 @@ describe("getFirstExerciseErrors", () => {
       minutes: { message: "Minutes must be a number." },
     });
   });
+
+  it("returns the first found error even if earlier entries have no errors", () => {
+    const mockErrors = [
+      {},
+      { name: { message: "Second item name error." } as FieldError },
+    ] as unknown as NonNullable<FieldErrors<WorkoutCreate>["exerciseList"]>;
+
+    const result = getFirstExerciseErrors(mockErrors);
+    expect(result).toEqual({
+      name: "Second item name error.",
+      minutes: null,
+    });
+  });
 });
