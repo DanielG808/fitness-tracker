@@ -18,7 +18,6 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
       className={`bg-white w-full md:w-2/3 rounded-lg shadow-md hover:shadow-xl duration-300 overflow-hidden transition-[height] ease-in-out ${
         expanded ? "h-auto" : "h-28"
       }`}
-      style={{ transitionDuration: "300ms" }} // Smooth CSS height
     >
       <div className="p-4 h-full">
         <article className="flex justify-between items-start h-full w-full">
@@ -41,7 +40,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            transition={{ ease: "easeInOut" }}
             className="px-4 pb-4"
           >
             <ExpandedWorkoutContent workout={workout} />
