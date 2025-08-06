@@ -44,7 +44,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
             transition={{ ease: "easeInOut" }}
             className="px-4 pb-4"
           >
-            <ExpandedWorkoutContent workout={workout} />
+            <WorkoutDetailsExpanded exerciseList={workout.exerciseList} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -53,9 +53,5 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
 }
 
 function ExpandedWorkoutContent({ workout }: { workout: Workout }) {
-  return (
-    <div className="text-sm text-gray-600">
-      <WorkoutDetailsExpanded workout={workout} />
-    </div>
-  );
+  return <WorkoutDetailsExpanded exerciseList={workout.exerciseList} />;
 }
