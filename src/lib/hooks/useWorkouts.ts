@@ -10,6 +10,7 @@ import {
 } from "../validations/workoutSchema";
 import sleep from "../utils/sleep";
 import { WorkoutFormTypes } from "../constants/workoutFormTypes";
+import { calculateDuration } from "../utils/calculateDuration";
 
 export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
   const router = useRouter();
@@ -48,10 +49,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
   const duration = useWatch({ control, name: "duration" });
 
   useEffect(() => {
-    const total = exerciseList?.reduce(
-      (sum, ex) => sum + (Number(ex.minutes) || 0),
-      0
-    );
+    const total = calculateDuration(exerciseList);
     setValue("duration", total);
   }, [exerciseList, setValue]);
 
@@ -70,6 +68,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         });
 
         if (!response.ok) {
+          toast.warning("Workout was not successfully added.");
           throw new Error(
             `Failed to submit workout: ${response.status} ${response.statusText}`
           );
@@ -81,6 +80,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         return newWorkout;
       } catch (error) {
         console.error(error);
+        toast.warning("Workout was not successfully added.");
         throw new Error(`Failed to submit workout: ${error}`);
       }
     },
@@ -102,6 +102,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         });
 
         if (!response.ok) {
+          toast.warning("Workout was not successfully updated.");
           throw new Error(
             `Failed to edit workout: ${response.status} ${response.statusText}`
           );
@@ -113,6 +114,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         return updatedWorkout;
       } catch (error) {
         console.error(error);
+        toast.warning("Workout was not successfully updated.");
         throw new Error(`Failed to edit workout: ${error}`);
       }
     },
@@ -130,6 +132,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
         });
 
         if (!response.ok) {
+          toast.warning("Workout was not successfully deleted.");
           throw new Error(`Error: ${response.statusText}`);
         }
 
@@ -139,7 +142,7 @@ export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
       } catch (error) {
         console.error("Failed to delete workout:", error);
         toast.warning("Workout was not successfully deleted.");
-        return false;
+        throw new Error(`Failed to delete workout: ${error}`);
       }
     },
     [router]

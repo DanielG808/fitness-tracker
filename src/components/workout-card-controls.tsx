@@ -9,16 +9,18 @@ import { Workout } from "@/lib/validations/workoutSchema";
 
 type WorkoutCardControlsProps = {
   workout: Workout;
+  onExpand?: () => void;
 };
 
 export default function WorkoutCardControls({
   workout,
+  onExpand,
 }: WorkoutCardControlsProps) {
   const { id, title } = workout;
 
   return (
-    <section className="flex flex-col space-y-3 h-full">
-      <Button variant="icon">
+    <section className="flex flex-col space-y-3">
+      <Button variant="icon" onClick={onExpand}>
         <ArrowsPointingOutIcon className="h-5 w-5" />
       </Button>
       <WorkoutModal

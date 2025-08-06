@@ -134,4 +134,91 @@ describe("useWorkouts", () => {
     expect(toast.success).toHaveBeenLastCalledWith("Workout has been deleted!");
     expect(success).toBe(true);
   });
+
+  it("fails to submit a new workout", async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+
+    const { result } = renderHook(() => useWorkouts("add", undefined));
+
+    const data: WorkoutCreate = {
+      title: "Bad Workout",
+      duration: 20,
+      exerciseList: [{ name: "Sit Ups", minutes: 20, reps: 30 }],
+    };
+
+    let error: unknown;
+    await act(async () => {
+      try {
+        await result.current.onSubmit(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    expect(toast.warning).toHaveBeenCalledWith(
+      "Workout was not successfully added."
+    );
+    expect((error as Error).message).toMatch("Failed to submit workout");
+  });
+
+  it("fails to update a workout", async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+
+    const { result } = renderHook(() => useWorkouts("edit", mockWorkout));
+
+    const newData: WorkoutCreate = {
+      title: "Updated Workout",
+      duration: 40,
+      exerciseList: [
+        { name: "Push Ups", minutes: 10, reps: 20 },
+        { name: "Lunges", minutes: 25, reps: 35 },
+      ],
+    };
+
+    let error: unknown;
+    await act(async () => {
+      try {
+        await result.current.onSubmit(newData);
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    expect(toast.warning).toHaveBeenCalledWith(
+      "Workout was not successfully updated."
+    );
+    expect((error as Error).message).toMatch("Failed to edit workout");
+  });
+
+  it("fails to delete a workout", async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+
+    const { result } = renderHook(() => useWorkouts("edit", undefined));
+
+    let error: unknown;
+    await act(async () => {
+      try {
+        await result.current.deleteWorkout("123");
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    expect(toast.warning).toHaveBeenCalledWith(
+      "Workout was not successfully deleted."
+    );
+    expect((error as Error).message).toMatch("Failed to delete workout");
+  });
 });
