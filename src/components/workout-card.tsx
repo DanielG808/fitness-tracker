@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Workout } from "@/lib/validations/workoutSchema";
 import WorkoutDetails from "./workout-details";
 import WorkoutCardControls from "./workout-card-controls";
+import WorkoutDetailsExpanded from "./workout-details-expanded";
 
 type WorkoutCardProps = {
   workout: Workout;
@@ -54,7 +55,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
 function ExpandedWorkoutContent({ workout }: { workout: Workout }) {
   return (
     <div className="text-sm text-gray-600">
-      <p>More details about "{workout.title}" go here.</p>
+      <WorkoutDetailsExpanded workout={workout} />
     </div>
   );
 }
