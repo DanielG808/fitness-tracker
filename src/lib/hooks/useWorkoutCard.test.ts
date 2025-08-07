@@ -16,4 +16,15 @@ describe("useWorkoutCard", () => {
 
     expect(result.current.expanded).toEqual(true);
   });
+
+  it("should toggle value to back to false after toggling to true", () => {
+    const { result } = renderHook(() => useWorkoutCard());
+
+    act(() => {
+      result.current.toggleWorkoutCard();
+      result.current.toggleWorkoutCard();
+    });
+
+    expect(result.current.expanded).toEqual(false);
+  });
 });
