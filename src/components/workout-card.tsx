@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Workout } from "@/lib/validations/workoutSchema";
+import { motion, AnimatePresence } from "framer-motion";
 import WorkoutDetails from "./workout-details";
 import WorkoutCardControls from "./workout-card-controls";
 import WorkoutDetailsExpanded from "./workout-details-expanded";
@@ -30,11 +31,20 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
               <span className="mt-1 sm:mt-0 sm:ml-2 font-semibold text-black/75">{`${workout.duration} mins`}</span>
             </header>
 
-            {!expanded ? (
-              <WorkoutDetails workout={workout} expanded={expanded} />
-            ) : (
-              <WorkoutDetailsExpanded exerciseList={workout.exerciseList} />
-            )}
+            <AnimatePresence mode="wait">
+              <motion.div
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                {!expanded ? (
+                  <WorkoutDetails workout={workout} expanded={expanded} />
+                ) : (
+                  <WorkoutDetailsExpanded exerciseList={workout.exerciseList} />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </article>
         <WorkoutCardControls
