@@ -7,13 +7,14 @@ import WorkoutDetails from "./workout-details";
 import WorkoutCardControls from "./workout-card-controls";
 import WorkoutDetailsExpanded from "./workout-details-expanded";
 import H2 from "./ui/h2";
+import { useWorkoutCard } from "@/lib/hooks/useWorkoutCard";
 
 type WorkoutCardProps = {
   workout: Workout;
 };
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
-  const [expanded, setExpanded] = useState(false);
+  const { expanded, toggleWorkoutCard } = useWorkoutCard();
 
   return (
     <li
@@ -31,7 +32,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
               <span className="mt-1 sm:mt-0 sm:ml-2 font-semibold text-black/75">{`${workout.duration} mins`}</span>
             </header>
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               <motion.div
                 layout
                 initial={{ opacity: 0 }}
@@ -49,7 +50,8 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
         </article>
         <WorkoutCardControls
           workout={workout}
-          onExpand={() => setExpanded((prev) => !prev)}
+          expanded={expanded}
+          onExpand={toggleWorkoutCard}
         />
       </div>
     </li>

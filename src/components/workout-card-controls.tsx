@@ -1,4 +1,5 @@
 import {
+  ArrowsPointingInIcon,
   ArrowsPointingOutIcon,
   PencilSquareIcon,
 } from "@heroicons/react/16/solid";
@@ -9,11 +10,13 @@ import { Workout } from "@/lib/validations/workoutSchema";
 
 type WorkoutCardControlsProps = {
   workout: Workout;
+  expanded: boolean;
   onExpand?: () => void;
 };
 
 export default function WorkoutCardControls({
   workout,
+  expanded,
   onExpand,
 }: WorkoutCardControlsProps) {
   const { id, title } = workout;
@@ -21,7 +24,11 @@ export default function WorkoutCardControls({
   return (
     <section className="flex flex-col space-y-3">
       <Button variant="icon" onClick={onExpand}>
-        <ArrowsPointingOutIcon className="h-5 w-5" />
+        {!expanded ? (
+          <ArrowsPointingOutIcon className="h-5 w-5" />
+        ) : (
+          <ArrowsPointingInIcon className="h-5 w-5" />
+        )}
       </Button>
       <WorkoutModal
         workout={workout}
