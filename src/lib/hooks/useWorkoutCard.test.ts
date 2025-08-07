@@ -27,4 +27,31 @@ describe("useWorkoutCard", () => {
 
     expect(result.current.expanded).toEqual(false);
   });
+
+  it("should maintain correct state after multiple rapid toggles", () => {
+    const { result } = renderHook(() => useWorkoutCard());
+
+    act(() => {
+      for (let i = 0; i < 5; i++) {
+        result.current.toggleWorkoutCard();
+      }
+    });
+
+    expect(result.current.expanded).toEqual(true);
+  });
+
+  it("should toggle expanded to the opposite boolean value on each call", () => {
+    const { result } = renderHook(() => useWorkoutCard());
+
+    let previous = result.current.expanded;
+
+    for (let i = 0; i < 5; i++) {
+      act(() => {
+        result.current.toggleWorkoutCard();
+      });
+
+      expect(result.current.expanded).toEqual(!previous);
+      previous = result.current.expanded;
+    }
+  });
 });
