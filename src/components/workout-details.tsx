@@ -1,18 +1,18 @@
 import { Workout } from "@/lib/validations/workoutSchema";
-import H2 from "./ui/h2";
 
-type WorkoutDetailsProps = { workout: Workout };
+type WorkoutDetailsProps = { workout: Workout; expanded: boolean };
 
-export default function WorkoutDetails({ workout }: WorkoutDetailsProps) {
+export default function WorkoutDetails({
+  workout,
+  expanded,
+}: WorkoutDetailsProps) {
   const { id, title, duration, exerciseList } = workout;
 
   return (
-    <div className="flex flex-col justify-between h-full w-full px-2">
-      <header className="flex flex-col justify-between h-full sm:h-auto sm:justify-start sm:flex-row sm:items-center">
-        <H2 className="text-xl font-semibold">{title}</H2>
-        <span className="mt-1 sm:mt-0 sm:ml-2 font-semibold text-black/75">{`${duration} mins`}</span>
-      </header>
-      <ul className="flex space-x-1 text-black/75">
+    !expanded && (
+      <ul
+        className={`flex space-x-1 font-semibold text-gray-600 transition-all duration-200`}
+      >
         {exerciseList.map((exercise, index) => (
           <li key={index} className="hidden md:block">
             {exercise.name}
@@ -20,6 +20,6 @@ export default function WorkoutDetails({ workout }: WorkoutDetailsProps) {
           </li>
         ))}
       </ul>
-    </div>
+    )
   );
 }

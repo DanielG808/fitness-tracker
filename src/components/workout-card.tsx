@@ -1,61 +1,59 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Workout } from "@/lib/validations/workoutSchema";
+import { motion, AnimatePresence } from "framer-motion";
 import WorkoutDetails from "./workout-details";
 import WorkoutCardControls from "./workout-card-controls";
+import WorkoutDetailsExpanded from "./workout-details-expanded";
+import H2 from "./ui/h2";
+import { useWorkoutCard } from "@/lib/hooks/useWorkoutCard";
 
 type WorkoutCardProps = {
   workout: Workout;
 };
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
-  const [expanded, setExpanded] = useState(false);
+  const { expanded, toggleWorkoutCard } = useWorkoutCard();
 
   return (
     <li
-      className={`bg-white w-full md:w-2/3 rounded-lg shadow-md hover:shadow-xl duration-300 overflow-hidden transition-[height] ease-in-out ${
+      className={`bg-white w-full md:w-2/3 rounded-lg shadow-md hover:shadow-xl duration-300 overflow-hidden transition-[height] ease-in-out w-full ${
         expanded ? "h-auto" : "h-28"
       }`}
-      style={{ transitionDuration: "300ms" }} // Smooth CSS height
     >
-      <div className="p-4 h-full">
-        <article className="flex justify-between items-start h-full w-full">
-          <div className="flex flex-col justify-between h-full flex-1">
-            <WorkoutDetails workout={workout} />
+      <div className="flex justify-between p-4 w-full h-full">
+        <article
+          className={`flex flex-col items-start ${!expanded && "h-full"}`}
+        >
+          <div className="flex flex-col justify-between h-full w-full px-2">
+            <header className="flex flex-col justify-between h-full sm:h-auto sm:justify-start sm:flex-row sm:items-center">
+              <H2 className="text-xl font-semibold">{workout.title}</H2>
+              <span className="mt-1 sm:mt-0 sm:ml-2 font-semibold text-black/75">{`${workout.duration} mins`}</span>
+            </header>
+
+            <AnimatePresence>
+              <motion.div
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                {!expanded ? (
+                  <WorkoutDetails workout={workout} expanded={expanded} />
+                ) : (
+                  <WorkoutDetailsExpanded exerciseList={workout.exerciseList} />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
-
-          <WorkoutCardControls
-            workout={workout}
-            onExpand={() => setExpanded((prev) => !prev)}
-          />
         </article>
+        <WorkoutCardControls
+          workout={workout}
+          expanded={expanded}
+          onExpand={toggleWorkoutCard}
+        />
       </div>
-
-      {/* Expanded section */}
-      <AnimatePresence>
-        {expanded && (
-          <motion.div
-            key="expanded-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="px-4 pb-4"
-          >
-            <ExpandedWorkoutContent workout={workout} />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </li>
-  );
-}
-
-function ExpandedWorkoutContent({ workout }: { workout: Workout }) {
-  return (
-    <div className="text-sm text-gray-600">
-      <p>More details about "{workout.title}" go here.</p>
-    </div>
   );
 }
