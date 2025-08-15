@@ -12,7 +12,7 @@ import sleep from "../utils/sleep";
 import { WorkoutFormTypes } from "../constants/workoutFormTypes";
 import { calculateDuration } from "../utils/calculateDuration";
 
-export function useWorkouts(action: WorkoutFormTypes, workout?: Workout) {
+export function useWorkoutForm(action: WorkoutFormTypes, workout?: Workout) {
   const router = useRouter();
   const {
     register,

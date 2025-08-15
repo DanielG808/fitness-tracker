@@ -2,7 +2,7 @@
 
 import { Workout } from "@/lib/validations/workoutSchema";
 import { WorkoutFormTypes } from "@/lib/constants/workoutFormTypes";
-import { useWorkouts } from "@/lib/hooks/useWorkouts";
+import { useWorkoutForm } from "@/lib/hooks/useWorkoutForm";
 import Form from "./ui/form";
 import ErrorMessageContainer from "./error-message-container";
 import WorkoutFormInputs from "./wokrout-form-inputs";
@@ -30,7 +30,7 @@ export default function WorkoutForm({
     remove,
     onSubmit,
     duration,
-  } = useWorkouts(action, workout);
+  } = useWorkoutForm(action, workout);
 
   return (
     <Form
