@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { toast } from "sonner";
-import { useWorkouts } from "./useWorkouts";
+import { useWorkoutForm } from "./useWorkoutForm";
 import { Workout, WorkoutCreate } from "../validations/workoutSchema";
 
 const router = {
@@ -41,7 +41,7 @@ describe("useWorkouts", () => {
       json: async () => mockWorkout,
     });
 
-    const { result } = renderHook(() => useWorkouts("add", undefined));
+    const { result } = renderHook(() => useWorkoutForm("add", undefined));
 
     const data: WorkoutCreate = {
       title: "Test Workout",
@@ -86,7 +86,7 @@ describe("useWorkouts", () => {
       json: async () => updatedWorkout,
     });
 
-    const { result } = renderHook(() => useWorkouts("edit", mockWorkout));
+    const { result } = renderHook(() => useWorkoutForm("edit", mockWorkout));
 
     const newData: WorkoutCreate = {
       title: "Updated Workout",
@@ -120,7 +120,7 @@ describe("useWorkouts", () => {
       ok: true,
     });
 
-    const { result } = renderHook(() => useWorkouts("edit", undefined));
+    const { result } = renderHook(() => useWorkoutForm("edit", undefined));
 
     const success = await act(async () => {
       return await result.current.deleteWorkout("123");
@@ -142,7 +142,7 @@ describe("useWorkouts", () => {
       statusText: "Internal Server Error",
     });
 
-    const { result } = renderHook(() => useWorkouts("add", undefined));
+    const { result } = renderHook(() => useWorkoutForm("add", undefined));
 
     const data: WorkoutCreate = {
       title: "Bad Workout",
@@ -172,7 +172,7 @@ describe("useWorkouts", () => {
       statusText: "Internal Server Error",
     });
 
-    const { result } = renderHook(() => useWorkouts("edit", mockWorkout));
+    const { result } = renderHook(() => useWorkoutForm("edit", mockWorkout));
 
     const newData: WorkoutCreate = {
       title: "Updated Workout",
@@ -205,7 +205,7 @@ describe("useWorkouts", () => {
       statusText: "Internal Server Error",
     });
 
-    const { result } = renderHook(() => useWorkouts("edit", undefined));
+    const { result } = renderHook(() => useWorkoutForm("edit", undefined));
 
     let error: unknown;
     await act(async () => {

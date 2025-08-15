@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Workout } from "@/lib/validations/workoutSchema";
 import { motion, AnimatePresence } from "framer-motion";
 import WorkoutDetails from "./workout-details";
