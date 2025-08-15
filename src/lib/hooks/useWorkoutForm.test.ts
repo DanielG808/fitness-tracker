@@ -30,7 +30,7 @@ const mockWorkout: Workout = {
   ],
 };
 
-describe("useWorkouts", () => {
+describe("useWorkoutForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
